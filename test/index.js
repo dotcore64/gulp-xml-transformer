@@ -9,22 +9,31 @@ import { expect } from 'chai';
 import xmlTransformer from '../src';
 
 const readTestFile = filePath => readFileSync(path.join(__dirname, filePath), 'utf8');
+
 const testXml = readTestFile('test.xml');
 const expectedXml = readTestFile('test.expected.xml');
 
 describe('gulp-xml-editor', () => {
+  function functionTransformation(xml) {
+    xml.get('//name').text('new name');
+    return xml;
+  }
+
+  const objectTransformation = {
+    path: '//name',
+    text: 'new name',
+  };
+
   describe('in streaming mode', () => {
-    it('should transform given xml file', done => {
+    function testTransformation(transformation, xml, expectation, done) {
       // create the fake file
       const xmlFile = new File({
         contents: new PassThrough(),
       });
-      xmlFile.contents.end(testXml);
+      xmlFile.contents.end(xml);
 
       // Create a prefixer plugin stream
-      const transformer = xmlTransformer([
-        { path: '//name', text: 'new name' },
-      ]);
+      const transformer = xmlTransformer(transformation);
       transformer.write(xmlFile);
 
       // wait for the file to come back out
@@ -35,24 +44,34 @@ describe('gulp-xml-editor', () => {
         // buffer the contents to make sure it got prepended to
         file.contents.pipe(es.wait((err, data) => {
           // check the contents
-          expect(data.toString()).to.equal(expectedXml);
+          expect(data.toString()).to.equal(expectation);
           done();
         }));
       });
+    }
+
+    it('should change name tag with function', done => {
+      testTransformation(functionTransformation, testXml, expectedXml, done);
+    });
+
+    it('should change name tag with object', done => {
+      testTransformation(objectTransformation, testXml, expectedXml, done);
+    });
+
+    it('should change name tag with array', done => {
+      testTransformation([objectTransformation], testXml, expectedXml, done);
     });
   });
 
   describe('in buffering mode', () => {
-    it('should transform given xml file', done => {
+    function testTransformation(transformation, xml, expectation, done) {
       // create the fake file
       const xmlFile = new File({
-        contents: new Buffer(testXml),
+        contents: new Buffer(xml),
       });
 
       // Create a prefixer plugin stream
-      const converter = xmlTransformer([
-        { path: '//name', text: 'new name' },
-      ]);
+      const converter = xmlTransformer(transformation);
       converter.write(xmlFile);
 
       // wait for the file to come back out
@@ -61,9 +80,21 @@ describe('gulp-xml-editor', () => {
         expect(file.isBuffer()).to.equal(true);
 
         // buffer the contents to make sure it got prepended to
-        expect(file.contents.toString()).to.equal(expectedXml);
+        expect(file.contents.toString()).to.equal(expectation);
         done();
       });
+    }
+
+    it('should change name tag with function', done => {
+      testTransformation(functionTransformation, testXml, expectedXml, done);
+    });
+
+    it('should change name tag with object', done => {
+      testTransformation(objectTransformation, testXml, expectedXml, done);
+    });
+
+    it('should change name tag with array', done => {
+      testTransformation([objectTransformation], testXml, expectedXml, done);
     });
   });
 });
