@@ -1,7 +1,6 @@
 {
   "extends": "airbnb-base",
   "rules": {
-    "no-param-reassign": 0,
     "func-names": 0 // Needed for this binding
   }
 }
