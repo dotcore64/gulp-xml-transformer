@@ -1,46 +1,9 @@
 import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
-import libxmljs, { parseXmlString } from 'libxmljs';
 import { PluginError } from 'gulp-util';
-
-const PLUGIN_NAME = 'gulp-xml-transformer';
-
-// edit XML document by user specific function
-function functionTransformer(tranformation, doc) {
-  return tranformation(doc, libxmljs).toString();
-}
-
-function getTransformationAttrs(transformation) {
-  if (transformation.attrs) {
-    return transformation.attrs;
-  } else if (transformation.attr) {
-    return [transformation.attr];
-  }
-
-  return [];
-}
-
-// edit XML document by user specific object
-function objectTransformer(transformations, doc, nsUri) {
-  transformations.forEach(transformation => {
-    const elem = (nsUri === undefined) ?
-      doc.get(transformation.path) :
-      doc.get(transformation.path, nsUri);
-
-    if (!(elem instanceof libxmljs.Element)) {
-      throw new PluginError(PLUGIN_NAME, `Can't find element at "${transformation.path}"`);
-    }
-
-    if (transformation.hasOwnProperty('text')) {
-      elem.text(transformation.text);
-    }
-
-    const attrs = getTransformationAttrs(transformation);
-    attrs.forEach(attr => elem.attr(attr));
-  });
-
-  return doc.toString();
-}
+import { parseXmlString } from 'libxmljs';
+import { functionTransformer, objectTransformer } from './transformers.js';
+import { PLUGIN_NAME } from './const.js';
 
 function transform(transformations, transformer, nsUri) {
   // create through object

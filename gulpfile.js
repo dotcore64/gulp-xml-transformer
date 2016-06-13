@@ -5,7 +5,7 @@ const mocha = require('gulp-mocha');
 const eslint = require('gulp-eslint');
 const compiler = require('babel-core/register');
 
-const src = 'src/index.js';
+const src = 'src/*.js';
 
 gulp.task('lint', () =>
   gulp.src(src)
