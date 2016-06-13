@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '4'
+- '6'
+deploy:
+  api_key:
+    secure: Y0XgDobZZkHz3wnB+49jaL+YuGs02buPcvHG8f5qNcoLSTax3/6MOXP8HBpNCoKuHkwJMH/ys3CnfePXNRyUubmcBIhTSbuVa72VfqlhUWcv0A5qXrCzWJ6Q8sGaVjPcinNg9g2BbmM9xlc3+AQy1wkXCxHWE/3p37bSbTY8Cu6bj8AGWddhSd/stzAbNBJ3tZLPbzZOlHfFnP28qHArpQ9g60rKL6VZxkUA/mI34JYvmZr+v1vD7kCZiB7ibddPi4nEBTc8etPpGrpXqVNGqkkZsB6RXdkC5Yf6H1MDGfp4ylVUL78k/ZHSXcHXKwN0b0HLrDR24d+wQ0jQKmmHgnjvCyEixU/dafzyFuOUt+bIZJxWnWSFO3BwQuPNMPSvM9igH0hI9dpJNbcMHPny7UBrxKqip8DG+/X4ZInri+BI9xVp6CdHSAToOi1EbiyqyWSq2Y37qlSFupUne/LxVhG87qzWw2mRxtnarTKoyU6ORTTxRaGx10Qx9XRR2WuhnlEoenl5YwhA5IluZmPtDlirbZ1I/x9r8y7vwdwCflY5sxQfoj8Evfn38DpGbT6iMVBp/8KpOnMRsq7LHD0hWPxhh36n+A0x0ZJl1aLUMSnD28vGe+nuUUeWEvRsHHYuDJt42+SxDv9vMPXWrCGM/I5fDNsRbhaagdZw+X8Ku5I=
+  email: julian@dotcore.co.il
+  provider: npm
+  on:
+    tags: true
+after_script:
+- npm run coveralls
