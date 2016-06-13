@@ -9,5 +9,13 @@ deploy:
   provider: npm
   on:
     tags: true
+env:
+- CXX=g++-4.8 # needed to compile libxmljs
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 after_script:
 - npm run coveralls
