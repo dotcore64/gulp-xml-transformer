@@ -27,3 +27,32 @@ export const objChangeAttr = {
   path: '//version',
   attr: { major: 10 },
 };
+
+export const objAddAttr = {
+  path: '//version',
+  attr: { build: 20 },
+};
+
+export const objAddChangeAttr = {
+  path: '//version',
+  attrs: [
+    { major: 10 },
+    { minor: 11 },
+    { build: 20 },
+  ],
+};
+
+export const arrMultiChange = [
+  {
+    path: '//version',
+    attrs: [
+      { major: 10 },
+      { minor: 11 },
+      { build: 20 },
+    ],
+  },
+  {
+    path: '//name',
+    text: 'new name',
+  },
+];
