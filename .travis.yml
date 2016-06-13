@@ -1,5 +1,7 @@
 language: node_js
 node_js:
+- '0.10'
+- '0.12'
 - '4'
 - '6'
 deploy:
@@ -17,5 +19,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+before_install:
+- case ${TRAVIS_NODE_VERSION} in 0.10*|0.12*) mv gulpfile.js gulpfile.babel.js ;; esac
 after_script:
 - npm run coveralls

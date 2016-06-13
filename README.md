@@ -14,6 +14,8 @@
 $ npm install --save-dev gulp-xml-transformer
 ```
 
+Supports node >= 0.10
+
 ## Usage
 
 ```javascript
