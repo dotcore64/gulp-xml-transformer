@@ -1,31 +1,15 @@
 import File from 'vinyl';
 import { PassThrough } from 'stream';
 
-import path from 'path';
 import es from 'event-stream';
-import { readFileSync } from 'fs';
 import { expect } from 'chai';
 
+import tester from './tester.js';
 import xmlTransformer from '../src';
 
-const readTestFile = filePath => readFileSync(path.join(__dirname, filePath), 'utf8');
-
-const testXml = readTestFile('test.xml');
-const expectedXml = readTestFile('test.expected.xml');
-
 describe('gulp-xml-editor', () => {
-  function functionTransformation(xml) {
-    xml.get('//name').text('new name');
-    return xml;
-  }
-
-  const objectTransformation = {
-    path: '//name',
-    text: 'new name',
-  };
-
   describe('in streaming mode', () => {
-    function testTransformation(transformation, xml, expectation, done) {
+    tester((transformation, xml, expectation, done) => {
       // create the fake file
       const xmlFile = new File({
         contents: new PassThrough(),
@@ -48,23 +32,11 @@ describe('gulp-xml-editor', () => {
           done();
         }));
       });
-    }
-
-    it('should change name tag with function', done => {
-      testTransformation(functionTransformation, testXml, expectedXml, done);
-    });
-
-    it('should change name tag with object', done => {
-      testTransformation(objectTransformation, testXml, expectedXml, done);
-    });
-
-    it('should change name tag with array', done => {
-      testTransformation([objectTransformation], testXml, expectedXml, done);
     });
   });
 
   describe('in buffering mode', () => {
-    function testTransformation(transformation, xml, expectation, done) {
+    tester((transformation, xml, expectation, done) => {
       // create the fake file
       const xmlFile = new File({
         contents: new Buffer(xml),
@@ -83,18 +55,6 @@ describe('gulp-xml-editor', () => {
         expect(file.contents.toString()).to.equal(expectation);
         done();
       });
-    }
-
-    it('should change name tag with function', done => {
-      testTransformation(functionTransformation, testXml, expectedXml, done);
-    });
-
-    it('should change name tag with object', done => {
-      testTransformation(objectTransformation, testXml, expectedXml, done);
-    });
-
-    it('should change name tag with array', done => {
-      testTransformation([objectTransformation], testXml, expectedXml, done);
     });
   });
 });
