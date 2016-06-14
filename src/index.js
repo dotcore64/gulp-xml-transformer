@@ -28,7 +28,8 @@ function transform(transformations, transformer, nsUri) {
       // make sure the file goes through the next gulp plugin
       this.push(newFile);
       cb();
-    });
+    })
+    .catch(cb);
   });
 }
 
