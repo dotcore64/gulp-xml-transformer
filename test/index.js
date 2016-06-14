@@ -84,6 +84,18 @@ describe('gulp-xml-editor', () => {
       expect(() => xmlTransformer(1)).to.throw(PluginError, msg);
     });
 
+    it('should raise an error when passing invalid xml', done => {
+      const transformer = xmlTransformer(() => {});
+      transformer.on('error', err => {
+        expect(err).to.be.instanceof(Error);
+        expect(err.message).to.equal('Could not parse XML string');
+        done();
+      })
+      .write(new File({
+        contents: new Buffer(''),
+      }));
+    });
+
     it('should raise an error when passing an xpath which cannot be not found', done => {
       const transformer = xmlTransformer({ path: '//invalid', text: '' });
       transformer.on('error', err => {
