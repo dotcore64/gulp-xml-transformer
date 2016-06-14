@@ -10,26 +10,29 @@ function transform(transformations, transformer, nsUri) {
   return through.obj(function (file, enc, cb) {
     const newFile = file.clone();
 
-    vinylToString(file, enc)
-    .then(xml => {
-      const transformedXml = transformer(transformations, parseXmlString(xml), nsUri);
-
-      if (file.isBuffer()) {
-        newFile.contents = new Buffer(transformedXml);
-      } else if (file.isStream()) {
-        // start the transformation
-        newFile.contents = through();
-        newFile.contents.write(transformedXml);
-        newFile.contents.end();
-      } else {
-        throw new PluginError(PLUGIN_NAME, 'Invalid file');
-      }
-
-      // make sure the file goes through the next gulp plugin
+    if (file.isNull()) {
       this.push(newFile);
       cb();
-    })
-    .catch(cb);
+    } else {
+      vinylToString(file, enc)
+        .then(xml => {
+          const transformedXml = transformer(transformations, parseXmlString(xml), nsUri);
+
+          if (file.isBuffer()) {
+            newFile.contents = new Buffer(transformedXml);
+          } else /* if (file.isStream()) */ {
+            // start the transformation
+            newFile.contents = through();
+            newFile.contents.write(transformedXml);
+            newFile.contents.end();
+          }
+
+          // make sure the file goes through the next gulp plugin
+          this.push(newFile);
+          cb();
+        })
+        .catch(cb);
+    }
   });
 }
 

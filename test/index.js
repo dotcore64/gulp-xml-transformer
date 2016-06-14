@@ -62,6 +62,17 @@ describe('gulp-xml-editor', () => {
     });
   });
 
+  describe('null file', () => {
+    it('should return empty ', done => {
+      xmlTransformer(() => {})
+      .on('data', file => {
+        expect(file.isNull()).to.equal(true);
+        done();
+      })
+      .write(new File({}));
+    });
+  });
+
   describe('errors', () => {
     it('should raise error when missing option', () => {
       expect(xmlTransformer).to.throw(PluginError, /transformations option is required/);
