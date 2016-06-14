@@ -42,6 +42,16 @@ gulp.src("./manifest.xml")
   .pipe(gulp.dest("./dest"));
 
 /*
+ * edit XML document by using user specific object using a custom namespace
+ */
+gulp.src("./manifest.xml")
+  .pipe(xmlTransformer([
+    { path: '//a:name', text: 'new names' },
+    { path: '//a:version', attr: { 'major': '2' } }
+  ], { a: 'http://www.w3.org/ns/widgets' }))
+  .pipe(gulp.dest("./dest"));
+
+/*
  * edit XML document by using user specific function
  */
 gulp.src("./manifest.xml")
@@ -97,9 +107,9 @@ The if a function is supplied, it must have the following signature: `function (
 
 #### nsUri
 
-Type: `string`
+Type: `Object | string`
 
-Namespace URI of the elements to transform
+A string representing the Namespace URI of the elements to transform, or an object literal with namespaces.
 
 ## License
 

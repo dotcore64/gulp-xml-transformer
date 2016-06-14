@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="https://github.com/perrin4869/gulp-xml-transformer">
+  <name>this is name</name>
+  <version major="1" minor="0"></version>
+</root>

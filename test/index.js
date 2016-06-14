@@ -10,6 +10,7 @@ import { readTestFile } from './helper.js';
 import xmlTransformer from '../src';
 
 const testXml = readTestFile('test.xml');
+const namespacedXml = readTestFile('namespaced.xml');
 
 describe('gulp-xml-editor', () => {
   describe('in streaming mode', () => {
@@ -36,6 +37,29 @@ describe('gulp-xml-editor', () => {
           done();
         }));
       });
+    }, (transformation, expectation, namespaces, done) => {
+      // create the fake file
+      const xmlFile = new File({
+        contents: new PassThrough(),
+      });
+      xmlFile.contents.end(namespacedXml);
+
+      // Create a prefixer plugin stream
+      const transformer = xmlTransformer(transformation, namespaces);
+      transformer.write(xmlFile);
+
+      // wait for the file to come back out
+      transformer.once('data', file => {
+        // make sure it came out the same way it went in
+        expect(file.isStream()).to.equal(true);
+
+        // buffer the contents to make sure it got prepended to
+        file.contents.pipe(es.wait((err, data) => {
+          // check the contents
+          expect(data.toString()).to.equal(expectation);
+          done();
+        }));
+      });
     });
   });
 
@@ -48,6 +72,25 @@ describe('gulp-xml-editor', () => {
 
       // Create a prefixer plugin stream
       const converter = xmlTransformer(transformation);
+      converter.write(xmlFile);
+
+      // wait for the file to come back out
+      converter.once('data', file => {
+        // make sure it came out the same way it went in
+        expect(file.isBuffer()).to.equal(true);
+
+        // buffer the contents to make sure it got prepended to
+        expect(file.contents.toString()).to.equal(expectation);
+        done();
+      });
+    }, (transformation, expectation, namespaces, done) => {
+      // create the fake file
+      const xmlFile = new File({
+        contents: new Buffer(namespacedXml),
+      });
+
+      // Create a prefixer plugin stream
+      const converter = xmlTransformer(transformation, namespaces);
       converter.write(xmlFile);
 
       // wait for the file to come back out

@@ -56,3 +56,15 @@ export const arrMultiChange = [
     text: 'new name',
   },
 ];
+
+export const nsUri = 'https://github.com/perrin4869/gulp-xml-transformer';
+
+export const nsDefault = {
+  path: '//xmlns:name',
+  text: 'new name',
+};
+
+export const nsA = {
+  path: '//a:name',
+  text: 'new name',
+};

@@ -2,7 +2,7 @@ import { readTestFile } from './helper.js';
 import {
   funcChangeText, funcChangeAttr, funcAddChild,
   objChangeText, objChangeAttr, objAddAttr, objAddChangeAttr,
-  arrMultiChange,
+  arrMultiChange, nsUri, nsDefault, nsA,
 } from './transformations.js';
 
 const expectedText = readTestFile('test.text.xml');
@@ -12,7 +12,9 @@ const expectedAddAttr = readTestFile('test.add_attr.xml');
 const expectedAddChangeAttr = readTestFile('test.add_change_attr.xml');
 const expectedMulti = readTestFile('test.multi.xml');
 
-export default (tester) => {
+const expectedNs = readTestFile('namespaced.expected.xml');
+
+export default (tester, namespacedTester) => {
   describe('functions', () => {
     it('should change name tag with function', done => {
       tester(funcChangeText, expectedText, done);
@@ -48,6 +50,16 @@ export default (tester) => {
   describe('arrays', () => {
     it('should change name tag with array', done => {
       tester(arrMultiChange, expectedMulti, done);
+    });
+  });
+
+  describe('namespaced', () => {
+    it('should change name tag within default ns', done => {
+      namespacedTester(nsDefault, expectedNs, nsUri, done);
+    });
+
+    it('should change name tag within a ns', done => {
+      namespacedTester(nsA, expectedNs, { a: nsUri }, done);
     });
   });
 };
