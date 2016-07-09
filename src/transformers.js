@@ -28,7 +28,7 @@ export function objectTransformer(transformations, doc, nsUri) {
       throw new PluginError(PLUGIN_NAME, `Can't find element at "${transformation.path}"`);
     }
 
-    if (transformation.hasOwnProperty('text')) {
+    if ({}.hasOwnProperty.call(transformation, 'text')) {
       elem.text(transformation.text);
     }
 
