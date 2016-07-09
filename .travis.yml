@@ -20,6 +20,7 @@ addons:
     packages:
       - g++-4.8
 before_install:
+    - case ${TRAVIS_NODE_VERSION} in 0.10*|0.12*) npm install babel-cli ;; esac
     - case ${TRAVIS_NODE_VERSION} in 0.10*|0.12*) sed -i 's/gulp build/babel src --out-dir lib/g' package.json ;; esac # node v0.1x won't run gulp-eslint
     - case ${TRAVIS_NODE_VERSION} in 0.10*|0.12*) sed -i 's/gulp test/mocha/g' package.json ;; esac
 after_script:
