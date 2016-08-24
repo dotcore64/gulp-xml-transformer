@@ -1,20 +1,11 @@
 import libxmljs from 'libxmljs';
+import arrify from 'arrify';
 import { PluginError } from 'gulp-util';
 import { PLUGIN_NAME } from './const.js';
 
 // edit XML document by user specific function
 export function functionTransformer(tranformation, doc) {
   return tranformation(doc, libxmljs).toString();
-}
-
-function getTransformationAttrs(transformation) {
-  if (transformation.attrs) {
-    return transformation.attrs;
-  } else if (transformation.attr) {
-    return [transformation.attr];
-  }
-
-  return [];
 }
 
 // edit XML document by user specific object
@@ -32,7 +23,7 @@ export function objectTransformer(transformations, doc, nsUri) {
       elem.text(transformation.text);
     }
 
-    const attrs = getTransformationAttrs(transformation);
+    const attrs = arrify(transformation.attrs || transformation.attr);
     attrs.forEach(attr => elem.attr(attr));
   });
 
