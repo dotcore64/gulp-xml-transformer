@@ -1,7 +1,10 @@
 import libxmljs from 'libxmljs';
 import arrify from 'arrify';
+import normalize from 'value-or-function';
 import { PluginError } from 'gulp-util';
 import { PLUGIN_NAME } from './const.js';
+
+const stringOrNumber = (...args) => normalize(['number', 'string'], ...args);
 
 // edit XML document by user specific function
 export function functionTransformer(tranformation, doc) {
@@ -24,7 +27,14 @@ export function objectTransformer(transformations, doc, nsUri) {
     }
 
     const attrs = arrify(transformation.attrs || transformation.attr);
-    attrs.forEach(attr => elem.attr(attr));
+    attrs.forEach(attr => {
+      Object.keys(attr).forEach(key => {
+        const oldAttr = elem.attr(key);
+        const oldVal = oldAttr && oldAttr.value();
+        const val = stringOrNumber(attr[key], oldVal);
+        elem.attr({ [key]: val });
+      });
+    });
   });
 
   return doc.toString();

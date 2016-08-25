@@ -7,6 +7,8 @@ const expectedChild = readTestFile('test.child.xml');
 const expectedAddAttr = readTestFile('test.add_attr.xml');
 const expectedAddChangeAttr = readTestFile('test.add_change_attr.xml');
 const expectedMulti = readTestFile('test.multi.xml');
+const expectedMajorIncrease = readTestFile('test.major_increase.xml');
+const expectedMajorMinorIncrease = readTestFile('test.major_minor_increase.xml');
 const expectedNs = readTestFile('namespaced.expected.xml');
 
 const nsUri = 'https://github.com/perrin4869/gulp-xml-transformer';
@@ -94,6 +96,36 @@ export default (tester, namespacedTester) => {
             { minor: 11 },
             { build: 20 },
           ],
+        },
+      },
+      {
+        description: 'should increase major version',
+        expected: expectedMajorIncrease,
+        transformation: {
+          path: '//version',
+          attr: { major: val => parseInt(val, 10) + 1 },
+        },
+      },
+      {
+        description: 'should increase major and minor versions',
+        expected: expectedMajorMinorIncrease,
+        transformation: {
+          path: '//version',
+          attrs: [
+            { major: val => parseInt(val, 10) + 1 },
+            { minor: val => parseInt(val, 10) + 1 },
+          ],
+        },
+      },
+      {
+        description: 'should increase major and minor versions with one object without array',
+        expected: expectedMajorMinorIncrease,
+        transformation: {
+          path: '//version',
+          attrs: {
+            major: val => parseInt(val, 10) + 1,
+            minor: val => parseInt(val, 10) + 1,
+          },
         },
       },
     ].forEach(defineTest);

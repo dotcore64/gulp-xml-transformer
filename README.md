@@ -32,6 +32,15 @@ gulp.src("./manifest.xml")
   .pipe(gulp.dest("./dest"));
 
 /*
+ * attributes can be functions too
+ */
+gulp.src("./manifest.xml")
+  .pipe(xmlTransformer([
+    { path: '//version', attr: { 'major': val => parseInt(val, 10) + 1 } }
+  ])
+  .pipe(gulp.dest("./dest"));
+
+/*
  * edit XML document by using user specific object using a namespace
  */
 gulp.src("./manifest.xml")
@@ -101,7 +110,25 @@ The objects must be one of following.
     { 'attrName2': 'attrValue2' }
   ]
 }
+
+// alternatively
+{
+  path: 'xpath to the element',
+  attrs: {
+    'attrName1': 'attrValue1',
+    'attrName2': 'attrValue2',
+  }
+}
+
+// if the new value of the attribute depends on the old value, pass in a function
+{
+  path: 'xpath to the element',
+  attrs: {
+    'foo': oldVal => oldVal.replace('bar', 'baz'),
+  }
+}
 ```
+
 
 The if a function is supplied, it must have the following signature: `function (doc, [libxmljs]) {}`, and must return a libxmljs Document object. The `doc` argument is a libxmljs Document object, and the `libxmljs` argument is libxmljs object.
 
