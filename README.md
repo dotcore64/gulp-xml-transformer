@@ -1,5 +1,7 @@
 # gulp-xml-transformer
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/perrin4869/gulp-xml-transformer.svg)](https://greenkeeper.io/)
+
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coverage Status][coveralls-badge]][coveralls]
