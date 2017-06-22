@@ -1,5 +1,5 @@
 import libxmljs from 'libxmljs';
-import { readTestFile } from './helper.js';
+import { readTestFile } from './helper';
 
 const expectedText = readTestFile('test.text.xml');
 const expectedAttr = readTestFile('test.attr.xml');
@@ -15,13 +15,13 @@ const nsUri = 'https://github.com/perrin4869/gulp-xml-transformer';
 
 export default (tester, namespacedTester) => {
   const defineTest = ({ description, expected, transformation }) => {
-    it(description, done => {
+    it(description, (done) => {
       tester(transformation, expected, done);
     });
   };
 
   const defineNamespacedTest = ({ description, expected, namespaces, transformation }) => {
-    it(description, done => {
+    it(description, (done) => {
       namespacedTester(transformation, expected, namespaces, done);
     });
   };

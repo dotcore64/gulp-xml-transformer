@@ -5,8 +5,8 @@ import { PluginError } from 'gulp-util';
 import es from 'event-stream';
 import { expect } from 'chai';
 
-import tester from './tester.js';
-import { readTestFile } from './helper.js';
+import tester from './tester';
+import { readTestFile } from './helper';
 import xmlTransformer from '../src';
 
 const testXml = readTestFile('test.xml');
@@ -26,7 +26,7 @@ describe('gulp-xml-editor', () => {
       transformer.write(xmlFile);
 
       // wait for the file to come back out
-      transformer.once('data', file => {
+      transformer.once('data', (file) => {
         // make sure it came out the same way it went in
         expect(file.isStream()).to.equal(true);
 
@@ -49,7 +49,7 @@ describe('gulp-xml-editor', () => {
       transformer.write(xmlFile);
 
       // wait for the file to come back out
-      transformer.once('data', file => {
+      transformer.once('data', (file) => {
         // make sure it came out the same way it went in
         expect(file.isStream()).to.equal(true);
 
@@ -75,7 +75,7 @@ describe('gulp-xml-editor', () => {
       converter.write(xmlFile);
 
       // wait for the file to come back out
-      converter.once('data', file => {
+      converter.once('data', (file) => {
         // make sure it came out the same way it went in
         expect(file.isBuffer()).to.equal(true);
 
@@ -94,7 +94,7 @@ describe('gulp-xml-editor', () => {
       converter.write(xmlFile);
 
       // wait for the file to come back out
-      converter.once('data', file => {
+      converter.once('data', (file) => {
         // make sure it came out the same way it went in
         expect(file.isBuffer()).to.equal(true);
 
@@ -106,9 +106,9 @@ describe('gulp-xml-editor', () => {
   });
 
   describe('null file', () => {
-    it('should return empty ', done => {
+    it('should return empty ', (done) => {
       xmlTransformer(() => {})
-      .on('data', file => {
+      .on('data', (file) => {
         expect(file.isNull()).to.equal(true);
         done();
       })
@@ -127,9 +127,9 @@ describe('gulp-xml-editor', () => {
       expect(() => xmlTransformer(1)).to.throw(PluginError, msg);
     });
 
-    it('should raise an error when passing invalid xml', done => {
+    it('should raise an error when passing invalid xml', (done) => {
       const transformer = xmlTransformer(() => {});
-      transformer.on('error', err => {
+      transformer.on('error', (err) => {
         expect(err).to.be.instanceof(Error);
         expect(err.message).to.equal('Could not parse XML string');
         done();
@@ -139,9 +139,9 @@ describe('gulp-xml-editor', () => {
       }));
     });
 
-    it('should raise an error when passing an xpath which cannot be not found', done => {
+    it('should raise an error when passing an xpath which cannot be not found', (done) => {
       const transformer = xmlTransformer({ path: '//invalid', text: '' });
-      transformer.on('error', err => {
+      transformer.on('error', (err) => {
         expect(err).to.be.instanceof(Error);
         expect(err.message).to.equal('Can\'t find element at "//invalid"');
         done();
@@ -151,9 +151,9 @@ describe('gulp-xml-editor', () => {
       }));
     });
 
-    it('should raise an error when passing an xpath with no path to element', done => {
+    it('should raise an error when passing an xpath with no path to element', (done) => {
       const transformer = xmlTransformer({ path: '//version/@major', text: '' });
-      transformer.on('error', err => {
+      transformer.on('error', (err) => {
         expect(err).to.be.instanceof(Error);
         expect(err.message).to.equal('Can\'t find element at "//version/@major"');
         done();

@@ -2,8 +2,8 @@ import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
 import { PluginError } from 'gulp-util';
 import { parseXmlString } from 'libxmljs';
-import { functionTransformer, objectTransformer } from './transformers.js';
-import { PLUGIN_NAME } from './const.js';
+import { functionTransformer, objectTransformer } from './transformers';
+import { PLUGIN_NAME } from './const';
 
 function transform(transformations, transformer, nsUri) {
   // create through object
@@ -15,7 +15,7 @@ function transform(transformations, transformer, nsUri) {
       cb();
     } else {
       vinylToString(file, enc)
-        .then(xml => {
+        .then((xml) => {
           const transformedXml = transformer(transformations, parseXmlString(xml), nsUri);
 
           if (file.isBuffer()) {
