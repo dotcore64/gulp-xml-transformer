@@ -7,11 +7,11 @@ const compiler = require('babel-core/register');
 
 const src = 'src/*.js';
 
-gulp.task('lint', () =>
+gulp.task('lint', () => (
   gulp.src([src, 'test/*.js'])
   .pipe(eslint())
   .pipe(eslint.format())
-);
+));
 
 gulp.task('build', ['lint'], () => (
   gulp.src(src)
@@ -21,11 +21,7 @@ gulp.task('build', ['lint'], () => (
 
 gulp.task('test', ['lint'], () => (
   gulp.src('test')
-  .pipe(mocha({
-    compilers: { // TODO: remove once mocha supports mocha.opts from the API
-      js: compiler,
-    },
-  }))
+  .pipe(mocha())
   .on('error', util.log)
 ));
 
