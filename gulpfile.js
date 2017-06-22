@@ -3,7 +3,6 @@ const util = require('gulp-util');
 const babel = require('gulp-babel');
 const mocha = require('gulp-mocha');
 const eslint = require('gulp-eslint');
-const compiler = require('babel-core/register');
 
 const src = 'src/*.js';
 
