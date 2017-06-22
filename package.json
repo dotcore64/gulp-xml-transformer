@@ -8,7 +8,7 @@
     "build": "gulp build",
     "cover": "istanbul cover --report text --report html node_modules/mocha/bin/_mocha",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls && rm -rf ./coverage",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "files": [
     "lib"
