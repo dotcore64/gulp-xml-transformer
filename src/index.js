@@ -1,3 +1,4 @@
+import arrify from 'arrify';
 import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
 import { PluginError } from 'gulp-util';
@@ -42,11 +43,7 @@ function gulpXmlTransformer(transformations, nsUri) {
     case 'function':
       return transform(transformations, functionTransformer, nsUri);
     case 'object':
-      if (!Array.isArray(transformations)) {
-        return transform([transformations], objectTransformer, nsUri);
-      }
-
-      return transform(transformations, objectTransformer, nsUri);
+      return transform(arrify(transformations), objectTransformer, nsUri);
     case 'undefined':
       throw new PluginError(PLUGIN_NAME, 'transformations option is required');
     default:
