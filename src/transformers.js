@@ -17,9 +17,14 @@ export function objectTransformer(transformations, doc, nsUri) {
     const elem = (nsUri === undefined) ?
       doc.get(transformation.path) :
       doc.get(transformation.path, nsUri);
+    const { isMandatory = true } = transformation;
 
     if (!(elem instanceof libxmljs.Element)) {
-      throw new PluginError(PLUGIN_NAME, `Can't find element at "${transformation.path}"`);
+      if (isMandatory) {
+        throw new PluginError(PLUGIN_NAME, `Can't find element at "${transformation.path}"`);
+      }
+
+      return;
     }
 
     if ({}.hasOwnProperty.call(transformation, 'text')) {

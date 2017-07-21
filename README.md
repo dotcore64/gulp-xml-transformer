@@ -127,6 +127,16 @@ The objects must be one of following.
     'foo': oldVal => oldVal.replace('bar', 'baz'),
   }
 }
+
+// if you don't want an error to be thrown when the xpath doesn't match
+{
+  path: 'xpath that doesn\'t match',
+  isMandatory: false,
+  attrs: {
+    'attrName1': 'attrValue1',
+    'attrName2': 'attrValue2',
+  }
+}
 ```
 
 
