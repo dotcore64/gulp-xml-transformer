@@ -77,6 +77,24 @@ gulp.src("./manifest.xml")
     return xml;
   }))
   .pipe(gulp.dest("./dest"));
+
+/*
+ * edit XML document with an async function
+ */
+gulp.src("./manifest.xml")
+  .pipe(xmlTransformer((xml, libxmljs) => {
+    // 'xml' is libxmljs Document object.
+    xml.get('//key[./text()="Version"]').nextElement().text('2.0.0');
+
+    // 'libxmljs' is libxmljs object. you can call any libxmljs function.
+    var child = new libxmljs.Element(xml, 'note');
+    child.text('some text');
+    xml.get('//description').addChild(child);
+
+    // must return libxmljs Document object.
+    return Promise.resolve(xml);
+  }))
+  .pipe(gulp.dest("./dest"));
 ```
 
 ### Note

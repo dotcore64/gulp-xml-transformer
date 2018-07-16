@@ -16,9 +16,8 @@ function transform(transformations, transformer, nsUri) {
       cb();
     } else {
       vinylToString(file, enc)
-        .then((xml) => {
-          const transformedXml = transformer(transformations, parseXmlString(xml), nsUri);
-
+        .then(xml => transformer(transformations, parseXmlString(xml), nsUri))
+        .then((transformedXml) => {
           if (file.isBuffer()) {
             newFile.contents = new Buffer(transformedXml);
           } else /* if (file.isStream()) */ {

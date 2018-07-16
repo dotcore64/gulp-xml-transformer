@@ -57,6 +57,19 @@ export default (tester, namespacedTester) => {
           return xml;
         },
       },
+      {
+        description: 'should add child node with function asynchronously',
+        expected: expectedChild,
+        transformation(xml) {
+          xml.get('//name').text('new name');
+
+          const child = new libxmljs.Element(xml, 'child');
+          child.text('child element');
+          xml.get('//name').addChild(child);
+
+          return Promise.resolve(xml);
+        },
+      },
     ].forEach(defineTest);
   });
 
