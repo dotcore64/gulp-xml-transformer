@@ -32,7 +32,7 @@
   "dependencies": {
     "arrify": "^1.0.1",
     "gulp-util": "^3.0.8",
-    "libxmljs": "^0.18.4",
+    "libxmljs": "^0.19.5",
     "through2": "^2.0.3",
     "value-or-function": "^2.0.0",
     "vinyl-contents-tostring": "1.0.0"
