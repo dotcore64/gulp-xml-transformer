@@ -14,7 +14,7 @@
 $ npm install --save-dev gulp-xml-transformer
 ```
 
-Supports node >= 4
+Supports node >= 6
 
 ## Usage
 
