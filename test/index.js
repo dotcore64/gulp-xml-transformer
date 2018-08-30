@@ -1,6 +1,6 @@
 import File from 'vinyl';
+import PluginError from 'plugin-error';
 import { PassThrough } from 'stream';
-import { PluginError } from 'gulp-util';
 
 import es from 'event-stream';
 import { expect } from 'chai';

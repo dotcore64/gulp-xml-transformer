@@ -1,7 +1,7 @@
 import libxmljs from 'libxmljs';
 import arrify from 'arrify';
 import normalize from 'value-or-function';
-import { PluginError } from 'gulp-util';
+import PluginError from 'plugin-error';
 import { PLUGIN_NAME } from './const';
 
 const stringOrNumber = (...args) => normalize(['number', 'string'], ...args);

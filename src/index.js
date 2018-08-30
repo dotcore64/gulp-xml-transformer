@@ -1,38 +1,43 @@
 import arrify from 'arrify';
 import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
-import { PluginError } from 'gulp-util';
+import PluginError from 'plugin-error';
 import { parseXmlString } from 'libxmljs';
 import { functionTransformer, objectTransformer } from './transformers';
 import { PLUGIN_NAME } from './const';
 
+function getContents(file, xml) {
+  if (file.isBuffer()) {
+    return Buffer.from(xml);
+  }
+
+  /* elte if (file.isStream()) */
+  const contents = through();
+  contents.write(xml);
+  contents.end();
+
+  return contents;
+}
+
 function transform(transformations, transformer, nsUri) {
   // create through object
   return through.obj(function (file, enc, cb) {
-    const newFile = file.clone();
-
-    if (file.isNull()) {
-      this.push(newFile);
-      cb();
-    } else {
-      vinylToString(file, enc)
+    if (!file.isNull()) {
+      return vinylToString(file, enc)
         .then(xml => transformer(transformations, parseXmlString(xml), nsUri))
         .then((transformedXml) => {
-          if (file.isBuffer()) {
-            newFile.contents = Buffer.from(transformedXml);
-          } else /* if (file.isStream()) */ {
-            // start the transformation
-            newFile.contents = through();
-            newFile.contents.write(transformedXml);
-            newFile.contents.end();
-          }
+          const contents = getContents(file, transformedXml);
 
-          // make sure the file goes through the next gulp plugin
-          this.push(newFile);
+          Object.assign(file, { contents });
+          this.push(file);
+
           cb();
         })
         .catch(cb);
     }
+
+    this.push(file);
+    return cb();
   });
 }
 
