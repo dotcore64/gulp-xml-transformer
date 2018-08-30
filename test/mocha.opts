@@ -1,4 +1,4 @@
 -R spec
 --ui bdd
---compilers js:babel-register
+--compilers js:@babel/register
 --require env-test
