@@ -108,11 +108,11 @@ describe('gulp-xml-editor', () => {
   describe('null file', () => {
     it('should return empty ', (done) => {
       xmlTransformer(() => {})
-      .on('data', (file) => {
-        expect(file.isNull()).to.equal(true);
-        done();
-      })
-      .write(new File({}));
+        .on('data', (file) => {
+          expect(file.isNull()).to.equal(true);
+          done();
+        })
+        .write(new File({}));
     });
   });
 
@@ -120,14 +120,14 @@ describe('gulp-xml-editor', () => {
     it('should not throw error when isMandatory is false', (done) => {
       const transformer = xmlTransformer({ path: '//invalid', text: '', isMandatory: false });
       transformer.on('error', err => done(err))
-      .once('data', (file) => {
-        // contents should not have changed
-        expect(file.contents.toString()).to.equal(testXml);
-        done();
-      })
-      .write(new File({
-        contents: new Buffer(testXml),
-      }));
+        .once('data', (file) => {
+          // contents should not have changed
+          expect(file.contents.toString()).to.equal(testXml);
+          done();
+        })
+        .write(new File({
+          contents: new Buffer(testXml),
+        }));
     });
   });
 
@@ -149,9 +149,9 @@ describe('gulp-xml-editor', () => {
         expect(err.message).to.equal('Could not parse XML string');
         done();
       })
-      .write(new File({
-        contents: new Buffer(''),
-      }));
+        .write(new File({
+          contents: new Buffer(''),
+        }));
     });
 
     it('should raise an error when passing an xpath which cannot be not found', (done) => {
@@ -161,9 +161,9 @@ describe('gulp-xml-editor', () => {
         expect(err.message).to.equal('Can\'t find element at "//invalid"');
         done();
       })
-      .write(new File({
-        contents: new Buffer(testXml),
-      }));
+        .write(new File({
+          contents: new Buffer(testXml),
+        }));
     });
 
     it('should raise an error when passing an xpath with no path to element', (done) => {
@@ -173,9 +173,9 @@ describe('gulp-xml-editor', () => {
         expect(err.message).to.equal('Can\'t find element at "//version/@major"');
         done();
       })
-      .write(new File({
-        contents: new Buffer(testXml),
-      }));
+        .write(new File({
+          contents: new Buffer(testXml),
+        }));
     });
   });
 });

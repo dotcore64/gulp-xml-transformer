@@ -3,7 +3,6 @@
   "env": {
     "test": {
       "plugins": ["istanbul"],
-      "ignore": "gulpfile.js"
     }
   }
 }
