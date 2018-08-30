@@ -19,7 +19,7 @@ function transform(transformations, transformer, nsUri) {
         .then(xml => transformer(transformations, parseXmlString(xml), nsUri))
         .then((transformedXml) => {
           if (file.isBuffer()) {
-            newFile.contents = new Buffer(transformedXml);
+            newFile.contents = Buffer.from(transformedXml);
           } else /* if (file.isStream()) */ {
             // start the transformation
             newFile.contents = through();

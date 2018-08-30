@@ -67,7 +67,7 @@ describe('gulp-xml-editor', () => {
     tester((transformation, expectation, done) => {
       // create the fake file
       const xmlFile = new File({
-        contents: new Buffer(testXml),
+        contents: Buffer.from(testXml),
       });
 
       // Create a prefixer plugin stream
@@ -86,7 +86,7 @@ describe('gulp-xml-editor', () => {
     }, (transformation, expectation, namespaces, done) => {
       // create the fake file
       const xmlFile = new File({
-        contents: new Buffer(namespacedXml),
+        contents: Buffer.from(namespacedXml),
       });
 
       // Create a prefixer plugin stream
@@ -126,7 +126,7 @@ describe('gulp-xml-editor', () => {
           done();
         })
         .write(new File({
-          contents: new Buffer(testXml),
+          contents: Buffer.from(testXml),
         }));
     });
   });
@@ -150,7 +150,7 @@ describe('gulp-xml-editor', () => {
         done();
       })
         .write(new File({
-          contents: new Buffer(''),
+          contents: Buffer.from(''),
         }));
     });
 
@@ -162,7 +162,7 @@ describe('gulp-xml-editor', () => {
         done();
       })
         .write(new File({
-          contents: new Buffer(testXml),
+          contents: Buffer.from(testXml),
         }));
     });
 
@@ -174,7 +174,7 @@ describe('gulp-xml-editor', () => {
         done();
       })
         .write(new File({
-          contents: new Buffer(testXml),
+          contents: Buffer.from(testXml),
         }));
     });
   });
