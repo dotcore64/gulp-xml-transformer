@@ -14,9 +14,9 @@ export function functionTransformer(tranformation, doc) {
 // edit XML document by user specific object
 export function objectTransformer(transformations, doc, nsUri) {
   transformations.forEach((transformation) => {
-    const elem = (nsUri === undefined) ?
-      doc.get(transformation.path) :
-      doc.get(transformation.path, nsUri);
+    const elem = (nsUri === undefined)
+      ? doc.get(transformation.path)
+      : doc.get(transformation.path, nsUri);
     const { isMandatory = true } = transformation;
 
     if (!(elem instanceof libxmljs.Element)) {

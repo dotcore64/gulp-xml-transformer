@@ -20,7 +20,12 @@ export default (tester, namespacedTester) => {
     });
   };
 
-  const defineNamespacedTest = ({ description, expected, namespaces, transformation }) => {
+  const defineNamespacedTest = ({
+    description,
+    expected,
+    namespaces,
+    transformation,
+  }) => {
     it(description, (done) => {
       namespacedTester(transformation, expected, namespaces, done);
     });

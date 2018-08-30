@@ -48,9 +48,9 @@
     "chai": "^4.0.2",
     "coveralls": "^2.13.1",
     "env-test": "^1.0.0",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.3.0",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "event-stream": "^3.3.4",
     "nyc": "^11.0.2",
     "vinyl": "^2.2.0"
