@@ -36,7 +36,7 @@
     "libxmljs": "^0.19.5",
     "plugin-error": "^1.0.1",
     "through2": "^2.0.3",
-    "value-or-function": "^2.0.0",
+    "value-or-function": "^3.0.0",
     "vinyl-contents-tostring": "1.0.0"
   },
   "devDependencies": {
@@ -44,19 +44,15 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/register": "^7.0.0",
-    "babel-plugin-istanbul": "^4.1.6",
+    "babel-plugin-istanbul": "^5.0.1",
     "chai": "^4.0.2",
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.2",
     "env-test": "^1.0.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "event-stream": "^3.3.4",
-    "nyc": "^11.0.2",
+    "nyc": "^13.0.1",
     "vinyl": "^2.2.0"
-  },
-  "nyc": {
-    "sourceMap": false,
-    "instrument": false
   }
 }
