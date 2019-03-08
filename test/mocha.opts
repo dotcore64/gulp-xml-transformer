@@ -1,4 +1,0 @@
--R spec
---ui bdd
---require @babel/register
---require env-test

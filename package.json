@@ -52,7 +52,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "event-stream": "^3.3.4",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
     "nyc": "^13.0.1",
     "vinyl": "^2.2.0"
   }
