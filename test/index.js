@@ -13,95 +13,91 @@ const testXml = readTestFile('test.xml');
 const namespacedXml = readTestFile('namespaced.xml');
 
 describe('gulp-xml-editor', () => {
-  describe('in streaming mode', () => {
-    tester((transformation, expectation, done) => {
-      // create the fake file
-      const xmlFile = new File({
-        contents: new PassThrough(),
-      });
-      xmlFile.contents.end(testXml);
+  tester('in streaming mode', (transformation, expectation, done) => {
+    // create the fake file
+    const xmlFile = new File({
+      contents: new PassThrough(),
+    });
+    xmlFile.contents.end(testXml);
 
-      // Create a prefixer plugin stream
-      const transformer = xmlTransformer(transformation);
-      transformer.write(xmlFile);
+    // Create a prefixer plugin stream
+    const transformer = xmlTransformer(transformation);
+    transformer.write(xmlFile);
 
-      // wait for the file to come back out
-      transformer.once('data', (file) => {
-        // make sure it came out the same way it went in
-        expect(file.isStream()).to.equal(true);
+    // wait for the file to come back out
+    transformer.once('data', (file) => {
+      // make sure it came out the same way it went in
+      expect(file.isStream()).to.equal(true);
 
-        // buffer the contents to make sure it got prepended to
-        file.contents.pipe(es.wait((err, data) => {
-          // check the contents
-          expect(data.toString()).to.equal(expectation);
-          done();
-        }));
-      });
-    }, (transformation, expectation, namespaces, done) => {
-      // create the fake file
-      const xmlFile = new File({
-        contents: new PassThrough(),
-      });
-      xmlFile.contents.end(namespacedXml);
+      // buffer the contents to make sure it got prepended to
+      file.contents.pipe(es.wait((err, data) => {
+        // check the contents
+        expect(data.toString()).to.equal(expectation);
+        done();
+      }));
+    });
+  }, (transformation, expectation, namespaces, done) => {
+    // create the fake file
+    const xmlFile = new File({
+      contents: new PassThrough(),
+    });
+    xmlFile.contents.end(namespacedXml);
 
-      // Create a prefixer plugin stream
-      const transformer = xmlTransformer(transformation, namespaces);
-      transformer.write(xmlFile);
+    // Create a prefixer plugin stream
+    const transformer = xmlTransformer(transformation, namespaces);
+    transformer.write(xmlFile);
 
-      // wait for the file to come back out
-      transformer.once('data', (file) => {
-        // make sure it came out the same way it went in
-        expect(file.isStream()).to.equal(true);
+    // wait for the file to come back out
+    transformer.once('data', (file) => {
+      // make sure it came out the same way it went in
+      expect(file.isStream()).to.equal(true);
 
-        // buffer the contents to make sure it got prepended to
-        file.contents.pipe(es.wait((err, data) => {
-          // check the contents
-          expect(data.toString()).to.equal(expectation);
-          done();
-        }));
-      });
+      // buffer the contents to make sure it got prepended to
+      file.contents.pipe(es.wait((err, data) => {
+        // check the contents
+        expect(data.toString()).to.equal(expectation);
+        done();
+      }));
     });
   });
 
-  describe('in buffering mode', () => {
-    tester((transformation, expectation, done) => {
-      // create the fake file
-      const xmlFile = new File({
-        contents: Buffer.from(testXml),
-      });
+  tester('in buffering mode', (transformation, expectation, done) => {
+    // create the fake file
+    const xmlFile = new File({
+      contents: Buffer.from(testXml),
+    });
 
-      // Create a prefixer plugin stream
-      const converter = xmlTransformer(transformation);
-      converter.write(xmlFile);
+    // Create a prefixer plugin stream
+    const converter = xmlTransformer(transformation);
+    converter.write(xmlFile);
 
-      // wait for the file to come back out
-      converter.once('data', (file) => {
-        // make sure it came out the same way it went in
-        expect(file.isBuffer()).to.equal(true);
+    // wait for the file to come back out
+    converter.once('data', (file) => {
+      // make sure it came out the same way it went in
+      expect(file.isBuffer()).to.equal(true);
 
-        // buffer the contents to make sure it got prepended to
-        expect(file.contents.toString()).to.equal(expectation);
-        done();
-      });
-    }, (transformation, expectation, namespaces, done) => {
-      // create the fake file
-      const xmlFile = new File({
-        contents: Buffer.from(namespacedXml),
-      });
+      // buffer the contents to make sure it got prepended to
+      expect(file.contents.toString()).to.equal(expectation);
+      done();
+    });
+  }, (transformation, expectation, namespaces, done) => {
+    // create the fake file
+    const xmlFile = new File({
+      contents: Buffer.from(namespacedXml),
+    });
 
-      // Create a prefixer plugin stream
-      const converter = xmlTransformer(transformation, namespaces);
-      converter.write(xmlFile);
+    // Create a prefixer plugin stream
+    const converter = xmlTransformer(transformation, namespaces);
+    converter.write(xmlFile);
 
-      // wait for the file to come back out
-      converter.once('data', (file) => {
-        // make sure it came out the same way it went in
-        expect(file.isBuffer()).to.equal(true);
+    // wait for the file to come back out
+    converter.once('data', (file) => {
+      // make sure it came out the same way it went in
+      expect(file.isBuffer()).to.equal(true);
 
-        // buffer the contents to make sure it got prepended to
-        expect(file.contents.toString()).to.equal(expectation);
-        done();
-      });
+      // buffer the contents to make sure it got prepended to
+      expect(file.contents.toString()).to.equal(expectation);
+      done();
     });
   });
 

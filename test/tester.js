@@ -13,7 +13,7 @@ const expectedNs = readTestFile('namespaced.expected.xml');
 
 const nsUri = 'https://github.com/perrin4869/gulp-xml-transformer';
 
-export default (tester, namespacedTester) => {
+export default (name, tester, namespacedTester) => {
   const defineTest = ({ description, expected, transformation }) => {
     it(description, (done) => {
       tester(transformation, expected, done);
@@ -31,131 +31,84 @@ export default (tester, namespacedTester) => {
     });
   };
 
-  describe('functions', () => {
-    [
-      {
-        description: 'should change name tag with function',
-        expected: expectedText,
-        transformation(xml) {
-          xml.get('//name').text('new name');
-          return xml;
-        },
-      },
-      {
-        description: 'should change attr value with function',
-        expected: expectedAttr,
-        transformation(xml) {
-          xml.get('//version').attr({ major: '10' });
-          return xml;
-        },
-      },
-      {
-        description: 'should add child node with function',
-        expected: expectedChild,
-        transformation(xml) {
-          xml.get('//name').text('new name');
-
-          const child = new libxmljs.Element(xml, 'child');
-          child.text('child element');
-          xml.get('//name').addChild(child);
-
-          return xml;
-        },
-      },
-      {
-        description: 'should add child node with function asynchronously',
-        expected: expectedChild,
-        transformation(xml) {
-          xml.get('//name').text('new name');
-
-          const child = new libxmljs.Element(xml, 'child');
-          child.text('child element');
-          xml.get('//name').addChild(child);
-
-          return Promise.resolve(xml);
-        },
-      },
-    ].forEach(defineTest);
-  });
-
-  describe('objects', () => {
-    [
-      {
-        description: 'should change name tag with object',
-        expected: expectedText,
-        transformation: {
-          path: '//name',
-          text: 'new name',
-        },
-      },
-      {
-        description: 'should change attr value with object',
-        expected: expectedAttr,
-        transformation: {
-          path: '//version',
-          attr: { major: 10 },
-        },
-      },
-      {
-        description: 'should add attr value with object',
-        expected: expectedAddAttr,
-        transformation: {
-          path: '//version',
-          attr: { build: 20 },
-        },
-      },
-      {
-        description: 'should add and change attr values with object',
-        expected: expectedAddChangeAttr,
-        transformation: {
-          path: '//version',
-          attrs: [
-            { major: 10 },
-            { minor: 11 },
-            { build: 20 },
-          ],
-        },
-      },
-      {
-        description: 'should increase major version',
-        expected: expectedMajorIncrease,
-        transformation: {
-          path: '//version',
-          attr: { major: (val) => parseInt(val, 10) + 1 },
-        },
-      },
-      {
-        description: 'should increase major and minor versions',
-        expected: expectedMajorMinorIncrease,
-        transformation: {
-          path: '//version',
-          attrs: [
-            { major: (val) => parseInt(val, 10) + 1 },
-            { minor: (val) => parseInt(val, 10) + 1 },
-          ],
-        },
-      },
-      {
-        description: 'should increase major and minor versions with one object without array',
-        expected: expectedMajorMinorIncrease,
-        transformation: {
-          path: '//version',
-          attrs: {
-            major: (val) => parseInt(val, 10) + 1,
-            minor: (val) => parseInt(val, 10) + 1,
+  describe(name, () => {
+    describe('functions', () => {
+      [
+        {
+          description: 'should change name tag with function',
+          expected: expectedText,
+          transformation(xml) {
+            xml.get('//name').text('new name');
+            return xml;
           },
         },
-      },
-    ].forEach(defineTest);
-  });
+        {
+          description: 'should change attr value with function',
+          expected: expectedAttr,
+          transformation(xml) {
+            xml.get('//version').attr({ major: '10' });
+            return xml;
+          },
+        },
+        {
+          description: 'should add child node with function',
+          expected: expectedChild,
+          transformation(xml) {
+            xml.get('//name').text('new name');
 
-  describe('arrays', () => {
-    [
-      {
-        description: 'should change name tag with array',
-        expected: expectedMulti,
-        transformation: [
-          {
+            const child = new libxmljs.Element(xml, 'child');
+            child.text('child element');
+            xml.get('//name').addChild(child);
+
+            return xml;
+          },
+        },
+        {
+          description: 'should add child node with function asynchronously',
+          expected: expectedChild,
+          transformation(xml) {
+            xml.get('//name').text('new name');
+
+            const child = new libxmljs.Element(xml, 'child');
+            child.text('child element');
+            xml.get('//name').addChild(child);
+
+            return Promise.resolve(xml);
+          },
+        },
+      ].forEach(defineTest);
+    });
+
+    describe('objects', () => {
+      [
+        {
+          description: 'should change name tag with object',
+          expected: expectedText,
+          transformation: {
+            path: '//name',
+            text: 'new name',
+          },
+        },
+        {
+          description: 'should change attr value with object',
+          expected: expectedAttr,
+          transformation: {
+            path: '//version',
+            attr: { major: 10 },
+          },
+        },
+        {
+          description: 'should add attr value with object',
+          expected: expectedAddAttr,
+          transformation: {
+            path: '//version',
+            attr: { build: 20 },
+          },
+        },
+        {
+          description: 'should add and change attr values with object',
+          expected: expectedAddChangeAttr,
+          transformation: {
             path: '//version',
             attrs: [
               { major: 10 },
@@ -163,35 +116,84 @@ export default (tester, namespacedTester) => {
               { build: 20 },
             ],
           },
-          {
-            path: '//name',
+        },
+        {
+          description: 'should increase major version',
+          expected: expectedMajorIncrease,
+          transformation: {
+            path: '//version',
+            attr: { major: (val) => parseInt(val, 10) + 1 },
+          },
+        },
+        {
+          description: 'should increase major and minor versions',
+          expected: expectedMajorMinorIncrease,
+          transformation: {
+            path: '//version',
+            attrs: [
+              { major: (val) => parseInt(val, 10) + 1 },
+              { minor: (val) => parseInt(val, 10) + 1 },
+            ],
+          },
+        },
+        {
+          description: 'should increase major and minor versions with one object without array',
+          expected: expectedMajorMinorIncrease,
+          transformation: {
+            path: '//version',
+            attrs: {
+              major: (val) => parseInt(val, 10) + 1,
+              minor: (val) => parseInt(val, 10) + 1,
+            },
+          },
+        },
+      ].forEach(defineTest);
+    });
+
+    describe('arrays', () => {
+      [
+        {
+          description: 'should change name tag with array',
+          expected: expectedMulti,
+          transformation: [
+            {
+              path: '//version',
+              attrs: [
+                { major: 10 },
+                { minor: 11 },
+                { build: 20 },
+              ],
+            },
+            {
+              path: '//name',
+              text: 'new name',
+            },
+          ],
+        },
+      ].forEach(defineTest);
+    });
+
+    describe('namespaced', () => {
+      [
+        {
+          description: 'should change name tag within default ns',
+          expected: expectedNs,
+          namespaces: nsUri,
+          transformation: {
+            path: '//xmlns:name',
             text: 'new name',
           },
-        ],
-      },
-    ].forEach(defineTest);
-  });
-
-  describe('namespaced', () => {
-    [
-      {
-        description: 'should change name tag within default ns',
-        expected: expectedNs,
-        namespaces: nsUri,
-        transformation: {
-          path: '//xmlns:name',
-          text: 'new name',
         },
-      },
-      {
-        description: 'should change name tag within a ns',
-        expected: expectedNs,
-        namespaces: { a: nsUri },
-        transformation: {
-          path: '//a:name',
-          text: 'new name',
+        {
+          description: 'should change name tag within a ns',
+          expected: expectedNs,
+          namespaces: { a: nsUri },
+          transformation: {
+            path: '//a:name',
+            text: 'new name',
+          },
         },
-      },
-    ].forEach(defineNamespacedTest);
+      ].forEach(defineNamespacedTest);
+    });
   });
 };
