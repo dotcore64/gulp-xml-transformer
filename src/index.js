@@ -24,7 +24,7 @@ function transform(transformations, transformer, nsUri) {
   return through.obj(function (file, enc, cb) {
     if (!file.isNull()) {
       return vinylToString(file, enc)
-        .then(xml => transformer(transformations, parseXmlString(xml), nsUri))
+        .then((xml) => transformer(transformations, parseXmlString(xml), nsUri))
         .then((transformedXml) => {
           const contents = getContents(file, transformedXml);
 

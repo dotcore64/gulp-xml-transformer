@@ -119,7 +119,7 @@ describe('gulp-xml-editor', () => {
   describe('isMandatory', () => {
     it('should not throw error when isMandatory is false', (done) => {
       const transformer = xmlTransformer({ path: '//invalid', text: '', isMandatory: false });
-      transformer.on('error', err => done(err))
+      transformer.on('error', (err) => done(err))
         .once('data', (file) => {
           // contents should not have changed
           expect(file.contents.toString()).to.equal(testXml);

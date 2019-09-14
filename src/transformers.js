@@ -8,7 +8,7 @@ const stringOrNumber = (...args) => normalize(['number', 'string'], ...args);
 
 // edit XML document by user specific function
 export function functionTransformer(tranformation, doc) {
-  return Promise.resolve(tranformation(doc, libxmljs)).then(newDoc => newDoc.toString());
+  return Promise.resolve(tranformation(doc, libxmljs)).then((newDoc) => newDoc.toString());
 }
 
 // edit XML document by user specific object
