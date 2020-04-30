@@ -170,17 +170,17 @@ A string representing the Namespace URI of the elements to transform, or an obje
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 
-[build-badge]: https://img.shields.io/travis/perrin4869/gulp-xml-transformer/master.svg?style=flat-square
-[build]: https://travis-ci.org/perrin4869/gulp-xml-transformer
+[build-badge]: https://img.shields.io/travis/dotcore64/gulp-xml-transformer/master.svg?style=flat-square
+[build]: https://travis-ci.org/dotcore64/gulp-xml-transformer
 
 [npm-badge]: https://img.shields.io/npm/v/gulp-xml-transformer.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/gulp-xml-transformer
 
-[coveralls-badge]: https://img.shields.io/coveralls/perrin4869/gulp-xml-transformer/master.svg?style=flat-square
-[coveralls]: https://coveralls.io/r/perrin4869/gulp-xml-transformer
+[coveralls-badge]: https://img.shields.io/coveralls/dotcore64/gulp-xml-transformer/master.svg?style=flat-square
+[coveralls]: https://coveralls.io/r/dotcore64/gulp-xml-transformer
 
-[dependency-status-badge]: https://david-dm.org/perrin4869/gulp-xml-transformer.svg?style=flat-square
-[dependency-status]: https://david-dm.org/perrin4869/gulp-xml-transformer
+[dependency-status-badge]: https://david-dm.org/dotcore64/gulp-xml-transformer.svg?style=flat-square
+[dependency-status]: https://david-dm.org/dotcore64/gulp-xml-transformer
 
-[dev-dependency-status-badge]: https://david-dm.org/perrin4869/gulp-xml-transformer/dev-status.svg?style=flat-square
-[dev-dependency-status]: https://david-dm.org/perrin4869/gulp-xml-transformer#info=devDependencies
+[dev-dependency-status-badge]: https://david-dm.org/dotcore64/gulp-xml-transformer/dev-status.svg?style=flat-square
+[dev-dependency-status]: https://david-dm.org/dotcore64/gulp-xml-transformer#info=devDependencies

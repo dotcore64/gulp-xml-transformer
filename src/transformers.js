@@ -1,18 +1,17 @@
-import libxmljs from 'libxmljs';
-import arrify from 'arrify';
-import normalize from 'value-or-function';
-import PluginError from 'plugin-error';
-import { PLUGIN_NAME } from './const';
+const libxmljs = require('libxmljs2');
+const arrify = require('arrify');
+const normalize = require('value-or-function');
+const PluginError = require('plugin-error');
+const { PLUGIN_NAME } = require('./const');
 
 const stringOrNumber = (...args) => normalize(['number', 'string'], ...args);
 
 // edit XML document by user specific function
-export function functionTransformer(tranformation, doc) {
-  return Promise.resolve(tranformation(doc, libxmljs)).then((newDoc) => newDoc.toString());
-}
+module.exports.function = (tranformation, doc) => Promise.resolve(tranformation(doc, libxmljs))
+  .then((newDoc) => newDoc.toString());
 
 // edit XML document by user specific object
-export function objectTransformer(transformations, doc, nsUri) {
+module.exports.object = (transformations, doc, nsUri) => {
   transformations.forEach((transformation) => {
     const elem = (nsUri === undefined)
       ? doc.get(transformation.path)
@@ -43,4 +42,4 @@ export function objectTransformer(transformations, doc, nsUri) {
   });
 
   return doc.toString();
-}
+};

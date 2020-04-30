@@ -2,22 +2,19 @@
   "name": "gulp-xml-transformer",
   "version": "3.0.0",
   "description": "Gulp plugin for transforming xml content",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
     "lint": "eslint 'src/*.js' 'test/*.js'",
     "pretest": "npm run lint",
     "test": "mocha",
-    "build": "babel src -d lib",
     "cover": "nyc npm test",
     "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls",
-    "prepare": "npm run build"
+    "prepare": "npm test"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["src"],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/perrin4869/gulp-xml-transformer.git"
+    "url": "git+ssh://git@github.com/dotcore64/gulp-xml-transformer.git"
   },
   "keywords": [
     "gulpplugin",
@@ -28,33 +25,33 @@
   "author": "Julian Grinblat <julian@dotcore.co.il>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/perrin4869/gulp-xml-transformer/issues"
+    "url": "https://github.com/dotcore64/gulp-xml-transformer/issues"
   },
-  "homepage": "https://github.com/perrin4869/gulp-xml-transformer#readme",
+  "homepage": "https://github.com/dotcore64/gulp-xml-transformer#readme",
   "dependencies": {
     "arrify": "^2.0.1",
-    "libxmljs": "^0.19.7",
+    "libxmljs2": "^0.25.3",
     "plugin-error": "^1.0.1",
+    "standard-as-callback": "^2.0.1",
     "through2": "^3.0.1",
     "value-or-function": "^3.0.0",
-    "vinyl-contents-tostring": "2.0.1"
+    "vinyl-contents-tostring": "3.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.0",
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/register": "^7.6.0",
-    "babel-plugin-istanbul": "^5.2.0",
+    "@babel/core": "^7.9.6",
+    "@babel/register": "^7.9.0",
+    "@istanbuljs/nyc-config-babel": "^3.0.0",
+    "babel-plugin-istanbul": "^6.0.0",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.6",
+    "coveralls": "^3.1.0",
     "env-test": "^1.0.0",
-    "eslint": "^6.4.0",
-    "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-mocha": "^6.1.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-mocha": "^6.3.0",
     "event-stream": "^4.0.1",
-    "mocha": "^6.2.0",
-    "nyc": "^14.1.1",
+    "mocha": "^7.1.2",
+    "nyc": "^15.0.1",
     "vinyl": "^2.2.0"
   }
 }

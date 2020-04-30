@@ -1,47 +1,38 @@
-import arrify from 'arrify';
-import through from 'through2';
-import vinylToString from 'vinyl-contents-tostring';
-import PluginError from 'plugin-error';
-import { parseXmlString } from 'libxmljs';
-import { functionTransformer, objectTransformer } from './transformers';
-import { PLUGIN_NAME } from './const';
+const arrify = require('arrify');
+const through = require('through2');
+const vinylToString = require('vinyl-contents-tostring');
+const PluginError = require('plugin-error');
+const { parseXmlString } = require('libxmljs2');
+const asCallback = require('standard-as-callback').default;
 
-function getContents(file, xml) {
-  if (file.isBuffer()) {
-    return Buffer.from(xml);
-  }
+const { PLUGIN_NAME } = require('./const');
+const {
+  function: functionTransformer,
+  object: objectTransformer,
+} = require('./transformers');
 
-  /* elte if (file.isStream()) */
-  const contents = through();
-  contents.write(xml);
-  contents.end();
-
-  return contents;
-}
+const getContents = (file, xml) => (file.isBuffer()
+  ? Buffer.from(xml)
+  : through().end(xml));
 
 function transform(transformations, transformer, nsUri) {
   // create through object
   return through.obj(function (file, enc, cb) {
-    if (!file.isNull()) {
-      return vinylToString(file, enc)
-        .then((xml) => transformer(transformations, parseXmlString(xml), nsUri))
-        .then((transformedXml) => {
-          const contents = getContents(file, transformedXml);
-
-          Object.assign(file, { contents });
-          this.push(file);
-
-          cb();
-        })
-        .catch(cb);
+    if (file.isNull()) {
+      this.push(file);
+      return cb();
     }
 
-    this.push(file);
-    return cb();
+    return asCallback(vinylToString(file, enc)
+      .then((xml) => transformer(transformations, parseXmlString(xml), nsUri))
+      .then((transformedXml) => Object.assign(file, {
+        contents: getContents(file, transformedXml),
+      }))
+      .then(this.push.bind(this)), cb);
   });
 }
 
-function gulpXmlTransformer(transformations, nsUri) {
+module.exports = function (transformations, nsUri) {
   // check options
   switch (typeof transformations) {
     case 'function':
@@ -53,6 +44,4 @@ function gulpXmlTransformer(transformations, nsUri) {
     default:
       throw new PluginError(PLUGIN_NAME, 'transformations option must be a function or an object');
   }
-}
-
-module.exports = gulpXmlTransformer;
+};

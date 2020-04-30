@@ -1,13 +1,13 @@
-import File from 'vinyl';
-import PluginError from 'plugin-error';
-import { PassThrough } from 'stream';
+const File = require('vinyl');
+const PluginError = require('plugin-error');
+const { PassThrough } = require('stream');
 
-import es from 'event-stream';
-import { expect } from 'chai';
+const es = require('event-stream');
+const { expect } = require('chai');
 
-import tester from './tester';
-import { readTestFile } from './helper';
-import xmlTransformer from '../src';
+const tester = require('./tester');
+const { readTestFile } = require('./helper');
+const xmlTransformer = require('..');
 
 const testXml = readTestFile('test.xml');
 const namespacedXml = readTestFile('namespaced.xml');

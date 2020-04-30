@@ -1,5 +1,5 @@
-import libxmljs from 'libxmljs';
-import { readTestFile } from './helper';
+const libxmljs = require('libxmljs2');
+const { readTestFile } = require('./helper');
 
 const expectedText = readTestFile('test.text.xml');
 const expectedAttr = readTestFile('test.attr.xml');
@@ -11,9 +11,9 @@ const expectedMajorIncrease = readTestFile('test.major_increase.xml');
 const expectedMajorMinorIncrease = readTestFile('test.major_minor_increase.xml');
 const expectedNs = readTestFile('namespaced.expected.xml');
 
-const nsUri = 'https://github.com/perrin4869/gulp-xml-transformer';
+const nsUri = 'https://github.com/dotcore64/gulp-xml-transformer';
 
-export default (name, tester, namespacedTester) => {
+module.exports = (name, tester, namespacedTester) => {
   const defineTest = ({ description, expected, transformation }) => {
     it(description, (done) => {
       tester(transformation, expected, done);
