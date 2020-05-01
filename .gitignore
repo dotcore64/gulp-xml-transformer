@@ -1,13 +1,9 @@
 # Coverage directory used by tools like istanbul
 coverage
+.nyc_output
 
 # Dependency directory
 node_modules
 
 # Debug log from npm
 npm-debug.log
-
-# Build
-lib
-
-.nyc_output
