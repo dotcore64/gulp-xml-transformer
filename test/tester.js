@@ -15,9 +15,7 @@ const nsUri = 'https://github.com/dotcore64/gulp-xml-transformer';
 
 module.exports = (name, tester, namespacedTester) => {
   const defineTest = ({ description, expected, transformation }) => {
-    it(description, (done) => {
-      tester(transformation, expected, done);
-    });
+    it(description, () => tester(transformation, expected));
   };
 
   const defineNamespacedTest = ({
@@ -26,9 +24,7 @@ module.exports = (name, tester, namespacedTester) => {
     namespaces,
     transformation,
   }) => {
-    it(description, (done) => {
-      namespacedTester(transformation, expected, namespaces, done);
-    });
+    it(description, () => namespacedTester(transformation, expected, namespaces));
   };
 
   describe(name, () => {

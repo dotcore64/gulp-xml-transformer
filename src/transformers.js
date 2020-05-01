@@ -7,11 +7,11 @@ const { PLUGIN_NAME } = require('./const');
 const stringOrNumber = (...args) => normalize(['number', 'string'], ...args);
 
 // edit XML document by user specific function
-module.exports.function = (tranformation, doc) => Promise.resolve(tranformation(doc, libxmljs))
+module.exports.function = (tranformation) => (xml) => Promise.resolve(tranformation(xml, libxmljs))
   .then((newDoc) => newDoc.toString());
 
 // edit XML document by user specific object
-module.exports.object = (transformations, doc, nsUri) => {
+module.exports.object = (transformations, nsUri) => (doc) => {
   transformations.forEach((transformation) => {
     const elem = (nsUri === undefined)
       ? doc.get(transformation.path)

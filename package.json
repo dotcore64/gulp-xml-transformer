@@ -34,7 +34,7 @@
     "arrify": "^2.0.1",
     "libxmljs2": "^0.25.3",
     "plugin-error": "^1.0.1",
-    "standard-as-callback": "^2.0.1",
+    "promise-toolbox": "^0.15.1",
     "through2": "^3.0.1",
     "value-or-function": "^3.0.0",
     "vinyl-contents-tostring": "3.0.0"
@@ -45,15 +45,18 @@
     "@istanbuljs/nyc-config-babel": "^3.0.0",
     "babel-plugin-istanbul": "^6.0.0",
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "coveralls": "^3.1.0",
+    "dirty-chai": "^2.0.1",
     "env-test": "^1.0.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-mocha": "^6.3.0",
-    "event-stream": "^4.0.1",
     "mocha": "^7.1.2",
     "nyc": "^15.0.1",
+    "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0",
     "vinyl": "^2.2.0"
   }
 }

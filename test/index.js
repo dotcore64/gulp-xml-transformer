@@ -2,8 +2,10 @@ const File = require('vinyl');
 const PluginError = require('plugin-error');
 const { PassThrough } = require('stream');
 
-const es = require('event-stream');
 const { expect } = require('chai');
+const { spy } = require('sinon');
+const { fromEvent } = require('promise-toolbox');
+const vinylToString = require('vinyl-contents-tostring');
 
 const tester = require('./tester');
 const { readTestFile } = require('./helper');
@@ -13,7 +15,9 @@ const testXml = readTestFile('test.xml');
 const namespacedXml = readTestFile('namespaced.xml');
 
 describe('gulp-xml-editor', () => {
-  tester('in streaming mode', (transformation, expectation, done) => {
+  tester('in streaming mode', async (transformation, expectation) => {
+    const cb = spy();
+
     // create the fake file
     const xmlFile = new File({
       contents: new PassThrough(),
@@ -22,21 +26,18 @@ describe('gulp-xml-editor', () => {
 
     // Create a prefixer plugin stream
     const transformer = xmlTransformer(transformation);
-    transformer.write(xmlFile);
+    transformer.on('data', cb);
+    transformer.end(xmlFile);
 
-    // wait for the file to come back out
-    transformer.once('data', (file) => {
-      // make sure it came out the same way it went in
-      expect(file.isStream()).to.equal(true);
+    await fromEvent(transformer, 'end');
 
-      // buffer the contents to make sure it got prepended to
-      file.contents.pipe(es.wait((err, data) => {
-        // check the contents
-        expect(data.toString()).to.equal(expectation);
-        done();
-      }));
-    });
-  }, (transformation, expectation, namespaces, done) => {
+    expect(cb).to.have.been.calledOnce();
+    const file = cb.firstCall.args[0];
+    expect(file.isStream()).to.equal(true);
+    return expect(vinylToString(file)).to.become(expectation);
+  }, async (transformation, expectation, namespaces) => {
+    const cb = spy();
+
     // create the fake file
     const xmlFile = new File({
       contents: new PassThrough(),
@@ -45,23 +46,20 @@ describe('gulp-xml-editor', () => {
 
     // Create a prefixer plugin stream
     const transformer = xmlTransformer(transformation, namespaces);
-    transformer.write(xmlFile);
+    transformer.on('data', cb);
+    transformer.end(xmlFile);
 
-    // wait for the file to come back out
-    transformer.once('data', (file) => {
-      // make sure it came out the same way it went in
-      expect(file.isStream()).to.equal(true);
+    await fromEvent(transformer, 'end');
 
-      // buffer the contents to make sure it got prepended to
-      file.contents.pipe(es.wait((err, data) => {
-        // check the contents
-        expect(data.toString()).to.equal(expectation);
-        done();
-      }));
-    });
+    expect(cb).to.have.been.calledOnce();
+    const file = cb.firstCall.args[0];
+    expect(file.isStream()).to.equal(true);
+    return expect(vinylToString(file)).to.become(expectation);
   });
 
-  tester('in buffering mode', (transformation, expectation, done) => {
+  tester('in buffering mode', async (transformation, expectation) => {
+    const cb = spy();
+
     // create the fake file
     const xmlFile = new File({
       contents: Buffer.from(testXml),
@@ -69,18 +67,18 @@ describe('gulp-xml-editor', () => {
 
     // Create a prefixer plugin stream
     const converter = xmlTransformer(transformation);
-    converter.write(xmlFile);
+    converter.on('data', cb);
+    converter.end(xmlFile);
 
-    // wait for the file to come back out
-    converter.once('data', (file) => {
-      // make sure it came out the same way it went in
-      expect(file.isBuffer()).to.equal(true);
+    await fromEvent(converter, 'end');
 
-      // buffer the contents to make sure it got prepended to
-      expect(file.contents.toString()).to.equal(expectation);
-      done();
-    });
-  }, (transformation, expectation, namespaces, done) => {
+    const file = cb.firstCall.args[0];
+    expect(cb).to.have.been.calledOnce();
+    expect(file.isBuffer()).to.equal(true);
+    expect(file.contents.toString()).to.equal(expectation);
+  }, async (transformation, expectation, namespaces) => {
+    const cb = spy();
+
     // create the fake file
     const xmlFile = new File({
       contents: Buffer.from(namespacedXml),
@@ -88,42 +86,51 @@ describe('gulp-xml-editor', () => {
 
     // Create a prefixer plugin stream
     const converter = xmlTransformer(transformation, namespaces);
-    converter.write(xmlFile);
+    converter.on('data', cb);
+    converter.end(xmlFile);
 
-    // wait for the file to come back out
-    converter.once('data', (file) => {
-      // make sure it came out the same way it went in
-      expect(file.isBuffer()).to.equal(true);
+    await fromEvent(converter, 'end');
 
-      // buffer the contents to make sure it got prepended to
-      expect(file.contents.toString()).to.equal(expectation);
-      done();
-    });
+    const file = cb.firstCall.args[0];
+    expect(cb).to.have.been.calledOnce();
+    expect(file.isBuffer()).to.equal(true);
+    expect(file.contents.toString()).to.equal(expectation);
   });
 
   describe('null file', () => {
-    it('should return empty ', (done) => {
-      xmlTransformer(() => {})
-        .on('data', (file) => {
-          expect(file.isNull()).to.equal(true);
-          done();
-        })
-        .write(new File({}));
+    it('should return empty ', async () => {
+      const cb = spy();
+
+      const transformer = xmlTransformer(() => {});
+      transformer.on('data', cb);
+      transformer.end(new File({}));
+
+      await fromEvent(transformer, 'end');
+      expect(cb).to.have.been.calledOnce();
+      const file = cb.firstCall.args[0];
+      expect(file.isNull()).to.be.true();
     });
   });
 
   describe('isMandatory', () => {
-    it('should not throw error when isMandatory is false', (done) => {
+    it('should not throw error when isMandatory is false', async () => {
+      const cb = spy();
+
       const transformer = xmlTransformer({ path: '//invalid', text: '', isMandatory: false });
-      transformer.on('error', (err) => done(err))
-        .once('data', (file) => {
-          // contents should not have changed
-          expect(file.contents.toString()).to.equal(testXml);
-          done();
-        })
-        .write(new File({
-          contents: Buffer.from(testXml),
-        }));
+      transformer.on('data', cb);
+      transformer.on('error', cb);
+      transformer.end(new File({
+        contents: Buffer.from(testXml),
+      }));
+
+      await Promise.race([
+        fromEvent(transformer, 'end'),
+        fromEvent(transformer, 'error'),
+      ]);
+
+      const file = cb.firstCall.args[0];
+      expect(cb).to.have.been.calledOnce();
+      expect(file.contents.toString()).to.equal(testXml);
     });
   });
 
@@ -138,40 +145,40 @@ describe('gulp-xml-editor', () => {
       expect(() => xmlTransformer(1)).to.throw(PluginError, msg);
     });
 
-    it('should raise an error when passing invalid xml', (done) => {
+    it('should raise an error when passing invalid xml', () => {
       const transformer = xmlTransformer(() => {});
-      transformer.on('error', (err) => {
-        expect(err).to.be.instanceof(Error);
-        expect(err.message).to.equal('Could not parse XML string');
-        done();
-      })
-        .write(new File({
-          contents: Buffer.from(''),
-        }));
+      transformer.end(new File({
+        contents: Buffer.from(''),
+      }));
+
+      return expect(fromEvent(transformer, 'error'))
+        .to.eventually.be.instanceof(Error)
+        .and.have.property('message')
+        .equal('Could not parse XML string');
     });
 
-    it('should raise an error when passing an xpath which cannot be not found', (done) => {
+    it('should raise an error when passing an xpath which cannot be not found', () => {
       const transformer = xmlTransformer({ path: '//invalid', text: '' });
-      transformer.on('error', (err) => {
-        expect(err).to.be.instanceof(Error);
-        expect(err.message).to.equal('Can\'t find element at "//invalid"');
-        done();
-      })
-        .write(new File({
-          contents: Buffer.from(testXml),
-        }));
+      transformer.end(new File({
+        contents: Buffer.from(testXml),
+      }));
+
+      return expect(fromEvent(transformer, 'error'))
+        .to.eventually.be.instanceof(Error)
+        .and.have.property('message')
+        .equal('Can\'t find element at "//invalid"');
     });
 
-    it('should raise an error when passing an xpath with no path to element', (done) => {
+    it('should raise an error when passing an xpath with no path to element', () => {
       const transformer = xmlTransformer({ path: '//version/@major', text: '' });
-      transformer.on('error', (err) => {
-        expect(err).to.be.instanceof(Error);
-        expect(err.message).to.equal('Can\'t find element at "//version/@major"');
-        done();
-      })
-        .write(new File({
-          contents: Buffer.from(testXml),
-        }));
+      transformer.end(new File({
+        contents: Buffer.from(testXml),
+      }));
+
+      return expect(fromEvent(transformer, 'error'))
+        .to.eventually.be.instanceof(Error)
+        .and.have.property('message')
+        .equal('Can\'t find element at "//version/@major"');
     });
   });
 });
