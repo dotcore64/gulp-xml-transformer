@@ -1,10 +1,10 @@
 const File = require('vinyl');
 const PluginError = require('plugin-error');
-const { PassThrough } = require('stream');
 
 const { expect } = require('chai');
 const { spy } = require('sinon');
 const { fromEvent } = require('promise-toolbox');
+const through = require('through2');
 const vinylToString = require('vinyl-contents-tostring');
 
 const tester = require('./tester');
@@ -20,9 +20,8 @@ describe('gulp-xml-editor', () => {
 
     // create the fake file
     const xmlFile = new File({
-      contents: new PassThrough(),
+      contents: through().end(testXml),
     });
-    xmlFile.contents.end(testXml);
 
     // Create a prefixer plugin stream
     const transformer = xmlTransformer(transformation);
@@ -40,9 +39,8 @@ describe('gulp-xml-editor', () => {
 
     // create the fake file
     const xmlFile = new File({
-      contents: new PassThrough(),
+      contents: through().end(namespacedXml),
     });
-    xmlFile.contents.end(namespacedXml);
 
     // Create a prefixer plugin stream
     const transformer = xmlTransformer(transformation, namespaces);
