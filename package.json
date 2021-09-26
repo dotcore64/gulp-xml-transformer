@@ -37,7 +37,7 @@
     "promise-toolbox": "^0.19.2",
     "through2": "^4.0.2",
     "value-or-function": "^3.0.0",
-    "vinyl-contents-tostring": "3.0.0"
+    "vinyl-contents-tostring": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
