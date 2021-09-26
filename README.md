@@ -168,8 +168,8 @@ A string representing the Namespace URI of the elements to transform, or an obje
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 
-[build-badge]: https://img.shields.io/travis/dotcore64/gulp-xml-transformer/master.svg?style=flat-square
-[build]: https://travis-ci.org/dotcore64/gulp-xml-transformer
+[build-badge]: https://img.shields.io/github/workflow/status/dotcore64/gulp-xml-transformer/test/master?style=flat-square
+[build]: https://github.com/dotcore64/gulp-xml-transformer/actions
 
 [npm-badge]: https://img.shields.io/npm/v/gulp-xml-transformer.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/gulp-xml-transformer

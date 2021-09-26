@@ -8,7 +8,6 @@
     "pretest": "npm run lint",
     "test": "mocha",
     "cover": "nyc npm test",
-    "coveralls": "npm run cover && nyc report --reporter=text-lcov | coveralls",
     "prepare": "npm test"
   },
   "files": [
@@ -46,7 +45,6 @@
     "babel-plugin-istanbul": "^6.0.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "coveralls": "^3.1.1",
     "dirty-chai": "^2.0.1",
     "env-test": "^1.0.0",
     "eslint": "^7.32.0",
