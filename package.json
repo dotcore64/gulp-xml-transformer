@@ -1,6 +1,6 @@
 {
   "name": "gulp-xml-transformer",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "description": "Gulp plugin for transforming xml content",
   "main": "src/index.js",
   "scripts": {
