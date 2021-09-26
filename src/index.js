@@ -29,7 +29,7 @@ const getTransformStream = (transformer) => through.obj(
         .then(update(file))))),
 );
 
-module.exports = function (transformations, nsUri) {
+module.exports = (transformations, nsUri) => {
   // check options
   switch (typeof transformations) {
     case 'function':

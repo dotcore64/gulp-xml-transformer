@@ -137,7 +137,6 @@ describe('gulp-xml-editor', () => {
       expect(xmlTransformer).to.throw(PluginError, /transformations option is required/);
     });
 
-
     it('should raise an error when invalid type of option', () => {
       const msg = /transformations option must be a function or an object/;
       expect(() => xmlTransformer(1)).to.throw(PluginError, msg);

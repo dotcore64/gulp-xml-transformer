@@ -13,6 +13,7 @@ const expectedNs = readTestFile('namespaced.expected.xml');
 
 const nsUri = 'https://github.com/dotcore64/gulp-xml-transformer';
 
+// eslint-disable-next-line mocha/no-exports
 module.exports = (name, tester, namespacedTester) => {
   const defineTest = ({ description, expected, transformation }) => {
     it(description, () => tester(transformation, expected));
