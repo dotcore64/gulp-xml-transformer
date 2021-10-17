@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint 'src/*.js' 'test/*.js'",
-    "pretest": "npm run lint",
     "test": "mocha",
     "cover": "nyc npm test",
     "prepare": "npm test"
