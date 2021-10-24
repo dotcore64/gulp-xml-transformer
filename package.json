@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint 'src/*.js' 'test/*.js'",
     "test": "mocha",
-    "cover": "nyc npm test",
+    "cover": "c8 npm test",
     "prepare": "npm test"
   },
   "files": [
@@ -38,6 +38,7 @@
     "vinyl-contents-tostring": "^4.0.0"
   },
   "devDependencies": {
+    "c8": "^7.10.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "dirty-chai": "^2.0.1",
@@ -48,7 +49,6 @@
     "eslint-plugin-mocha": "^9.0.0",
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^9.1.3",
-    "nyc": "^15.1.0",
     "sinon": "^11.1.2",
     "sinon-chai": "^3.7.0",
     "vinyl": "^2.2.1"
