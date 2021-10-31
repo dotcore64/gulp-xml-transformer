@@ -4,10 +4,9 @@
   "description": "Gulp plugin for transforming xml content",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint 'src/*.js' 'test/*.js'",
+    "lint": "eslint --cache .",
     "test": "mocha",
-    "cover": "c8 npm test",
-    "prepare": "npm test"
+    "cover": "c8 npm test"
   },
   "files": [
     "src"
