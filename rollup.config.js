@@ -8,7 +8,7 @@ export default [{
   external,
   // sourcemaps help generate coverage reports for the actual sources using istanbul
   output: {
-    file: 'dist/cjs/index.js',
+    file: 'dist/index.cjs',
     format: 'cjs',
     sourcemap: true,
     exports: 'default',
@@ -17,7 +17,7 @@ export default [{
   input,
   external,
   output: {
-    file: 'dist/mjs/index.js',
+    file: 'dist/index.js',
     format: 'esm',
     sourcemap: true,
   },
