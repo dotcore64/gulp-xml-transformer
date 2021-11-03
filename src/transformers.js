@@ -1,17 +1,19 @@
-const libxmljs = require('libxmljs2');
-const arrify = require('arrify');
-const normalize = require('value-or-function');
-const PluginError = require('plugin-error');
-const { PLUGIN_NAME } = require('./const');
+import libxmljs from 'libxmljs2';
+import arrify from 'arrify';
+import normalize from 'value-or-function';
+import PluginError from 'plugin-error';
+
+// https://github.com/import-js/eslint-plugin-import/issues/2104
+import { PLUGIN_NAME } from './const.js'; // eslint-disable-line import/extensions
 
 const stringOrNumber = (...args) => normalize(['number', 'string'], ...args);
 
 // edit XML document by user specific function
-module.exports.function = (tranformation) => (xml) => Promise.resolve(tranformation(xml, libxmljs))
+export const func = (tranformation) => (xml) => Promise.resolve(tranformation(xml, libxmljs))
   .then((newDoc) => newDoc.toString());
 
 // edit XML document by user specific object
-module.exports.object = (transformations, nsUri) => (doc) => {
+export const obj = (transformations, nsUri) => (doc) => {
   transformations.forEach((transformation) => {
     const elem = (nsUri === undefined)
       ? doc.get(transformation.path)

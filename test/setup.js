@@ -1,5 +1,8 @@
-const chai = require('chai');
+import { createRequire } from 'module';
+import { use } from 'chai';
 
-chai.use(require('sinon-chai'));
-chai.use(require('chai-as-promised'));
-chai.use(require('dirty-chai'));
+const require = createRequire(import.meta.url);
+
+use(require('sinon-chai'));
+use(require('chai-as-promised'));
+use(require('dirty-chai'));

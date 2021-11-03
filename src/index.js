@@ -1,15 +1,15 @@
-const arrify = require('arrify');
-const through = require('through2');
-const vinylToString = require('vinyl-contents-tostring');
-const PluginError = require('plugin-error');
-const { parseXmlString } = require('libxmljs2');
-const { nodeify } = require('promise-toolbox');
+import arrify from 'arrify';
+import through from 'through2';
+import vinylToString from 'vinyl-contents-tostring';
+import PluginError from 'plugin-error';
+import { parseXmlString } from 'libxmljs2';
+import { nodeify } from 'promise-toolbox';
 
-const { PLUGIN_NAME } = require('./const');
-const {
-  function: functionTransformer,
-  object: objectTransformer,
-} = require('./transformers');
+import { PLUGIN_NAME } from './const';
+import {
+  func as functionTransformer,
+  obj as objectTransformer,
+} from './transformers';
 
 const clone = (fn) => (file, enc) => fn(file.clone(), enc);
 
@@ -29,7 +29,7 @@ const getTransformStream = (transformer) => through.obj(
         .then(update(file))))),
 );
 
-module.exports = (transformations, nsUri) => {
+export default (transformations, nsUri) => {
   // check options
   switch (typeof transformations) {
     case 'function':

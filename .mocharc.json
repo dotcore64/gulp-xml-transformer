@@ -1,5 +1,5 @@
 {
   "reporter": "spec",
   "ui": "bdd",
-  "require": ["env-test", "./test/setup"]
+  "require": ["./test/setup.js"]
 }

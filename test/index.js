@@ -1,15 +1,19 @@
-const File = require('vinyl');
-const PluginError = require('plugin-error');
+import File from 'vinyl';
+import PluginError from 'plugin-error';
 
-const { expect } = require('chai');
-const { spy } = require('sinon');
-const { fromEvent } = require('promise-toolbox');
-const through = require('through2');
-const vinylToString = require('vinyl-contents-tostring');
+import { expect } from 'chai';
+import { spy } from 'sinon';
+import { fromEvent } from 'promise-toolbox';
+import through from 'through2';
+import vinylToString from 'vinyl-contents-tostring';
 
-const tester = require('./tester');
-const { readTestFile } = require('./helper');
-const xmlTransformer = require('..');
+// https://github.com/import-js/eslint-plugin-import/issues/1649
+// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+import xmlTransformer from 'gulp-xml-transformer';
+
+// https://github.com/import-js/eslint-plugin-import/issues/2104
+import tester from './tester.js'; // eslint-disable-line import/extensions
+import { readTestFile } from './helper.js'; // eslint-disable-line import/extensions
 
 const testXml = readTestFile('test.xml');
 const namespacedXml = readTestFile('namespaced.xml');

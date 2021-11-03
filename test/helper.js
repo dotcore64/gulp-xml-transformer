@@ -1,4 +1,6 @@
-const { join } = require('path');
-const { readFileSync } = require('fs');
+import { join } from 'path';
+import { readFileSync } from 'fs';
+import { dirname } from 'dirname-filename-esm';
 
-module.exports.readTestFile = (filePath) => readFileSync(join(__dirname, filePath), 'utf8');
+// eslint-disable-next-line import/prefer-default-export
+export const readTestFile = (filePath) => readFileSync(join(dirname(import.meta), filePath), 'utf8');
