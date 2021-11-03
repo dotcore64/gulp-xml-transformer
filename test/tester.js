@@ -1,5 +1,7 @@
-const libxmljs = require('libxmljs2');
-const { readTestFile } = require('./helper');
+import libxmljs from 'libxmljs2';
+
+// https://github.com/import-js/eslint-plugin-import/issues/2104
+import { readTestFile } from './helper.js'; // eslint-disable-line import/extensions
 
 const expectedText = readTestFile('test.text.xml');
 const expectedAttr = readTestFile('test.attr.xml');
@@ -14,7 +16,7 @@ const expectedNs = readTestFile('namespaced.expected.xml');
 const nsUri = 'https://github.com/dotcore64/gulp-xml-transformer';
 
 // eslint-disable-next-line mocha/no-exports
-module.exports = (name, tester, namespacedTester) => {
+export default (name, tester, namespacedTester) => {
   const defineTest = ({ description, expected, transformation }) => {
     it(description, () => tester(transformation, expected));
   };

@@ -1,1 +1,2 @@
-module.exports.PLUGIN_NAME = 'gulp-xml-transformer';
+// eslint-disable-next-line import/prefer-default-export
+export const PLUGIN_NAME = 'gulp-xml-transformer';
