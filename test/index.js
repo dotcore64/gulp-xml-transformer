@@ -3,7 +3,7 @@ import PluginError from 'plugin-error';
 
 import { expect } from 'chai';
 import { spy } from 'sinon';
-import { fromEvent } from 'promise-toolbox';
+import { pEvent } from 'p-event';
 import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
 
@@ -32,7 +32,7 @@ describe('gulp-xml-editor', () => {
     transformer.on('data', cb);
     transformer.end(xmlFile);
 
-    await fromEvent(transformer, 'end');
+    await pEvent(transformer, 'end');
 
     expect(cb).to.have.been.calledOnce();
     const file = cb.firstCall.args[0];
@@ -51,7 +51,7 @@ describe('gulp-xml-editor', () => {
     transformer.on('data', cb);
     transformer.end(xmlFile);
 
-    await fromEvent(transformer, 'end');
+    await pEvent(transformer, 'end');
 
     expect(cb).to.have.been.calledOnce();
     const file = cb.firstCall.args[0];
@@ -72,7 +72,7 @@ describe('gulp-xml-editor', () => {
     converter.on('data', cb);
     converter.end(xmlFile);
 
-    await fromEvent(converter, 'end');
+    await pEvent(converter, 'end');
 
     const file = cb.firstCall.args[0];
     expect(cb).to.have.been.calledOnce();
@@ -91,7 +91,7 @@ describe('gulp-xml-editor', () => {
     converter.on('data', cb);
     converter.end(xmlFile);
 
-    await fromEvent(converter, 'end');
+    await pEvent(converter, 'end');
 
     const file = cb.firstCall.args[0];
     expect(cb).to.have.been.calledOnce();
@@ -107,7 +107,7 @@ describe('gulp-xml-editor', () => {
       transformer.on('data', cb);
       transformer.end(new File({}));
 
-      await fromEvent(transformer, 'end');
+      await pEvent(transformer, 'end');
       expect(cb).to.have.been.calledOnce();
       const file = cb.firstCall.args[0];
       expect(file.isNull()).to.be.true();
@@ -126,8 +126,8 @@ describe('gulp-xml-editor', () => {
       }));
 
       await Promise.race([
-        fromEvent(transformer, 'end'),
-        fromEvent(transformer, 'error'),
+        pEvent(transformer, 'end'),
+        pEvent(transformer, 'error'),
       ]);
 
       const file = cb.firstCall.args[0];
@@ -152,7 +152,7 @@ describe('gulp-xml-editor', () => {
         contents: Buffer.from(''),
       }));
 
-      return expect(fromEvent(transformer, 'error'))
+      return expect(pEvent(transformer, 'error'))
         .to.eventually.be.instanceof(Error)
         .and.have.property('message')
         .equal('Could not parse XML string');
@@ -164,7 +164,7 @@ describe('gulp-xml-editor', () => {
         contents: Buffer.from(testXml),
       }));
 
-      return expect(fromEvent(transformer, 'error'))
+      return expect(pEvent(transformer, 'error'))
         .to.eventually.be.instanceof(Error)
         .and.have.property('message')
         .equal('Can\'t find element at "//invalid"');
@@ -176,7 +176,7 @@ describe('gulp-xml-editor', () => {
         contents: Buffer.from(testXml),
       }));
 
-      return expect(fromEvent(transformer, 'error'))
+      return expect(pEvent(transformer, 'error'))
         .to.eventually.be.instanceof(Error)
         .and.have.property('message')
         .equal('Can\'t find element at "//version/@major"');

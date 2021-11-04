@@ -1,9 +1,9 @@
+import { callbackify } from 'util';
 import arrify from 'arrify';
 import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
 import PluginError from 'plugin-error';
 import { parseXmlString } from 'libxmljs2';
-import { nodeify } from 'promise-toolbox';
 
 import { PLUGIN_NAME } from './const';
 import {
@@ -20,9 +20,9 @@ const update = (file) => (xml) => Object.assign(file, {
 });
 
 const getTransformStream = (transformer) => through.obj(
-  nodeify(clone((file, enc) => (
+  callbackify(clone((file, enc) => (
     file.isNull()
-      ? file
+      ? Promise.resolve(file)
       : vinylToString(file, enc)
         .then(parseXmlString)
         .then(transformer)
