@@ -1,6 +1,7 @@
+import { createRequire } from 'module';
+
 import File from 'vinyl';
 import PluginError from 'plugin-error';
-
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import { pEvent } from 'p-event';
@@ -180,6 +181,13 @@ describe('gulp-xml-editor', () => {
         .to.eventually.be.instanceof(Error)
         .and.have.property('message')
         .equal('Can\'t find element at "//version/@major"');
+    });
+  });
+
+  describe('cjs', () => {
+    it('should require cjs module correctly', () => {
+      const require = createRequire(import.meta.url);
+      expect(require('..')).to.be.a('function');
     });
   });
 });
