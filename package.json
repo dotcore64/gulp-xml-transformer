@@ -21,7 +21,7 @@
     "prepare": "npm run build"
   },
   "files": [
-    "src"
+    "dist"
   ],
   "repository": {
     "type": "git",
