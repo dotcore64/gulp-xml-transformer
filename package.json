@@ -2,24 +2,18 @@
   "name": "gulp-xml-transformer",
   "version": "5.1.1",
   "description": "Gulp plugin for transforming xml content",
-  "main": "dist/index.cjs",
   "type": "module",
   "engines": {
-    "node": ">=12.2"
+    "node": ">=14.0.0"
   },
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
+    ".": "./index.js",
     "./package.json": "./package.json"
   },
   "scripts": {
     "lint": "eslint --cache .",
-    "build": "rollup -c",
     "test": "mocha",
-    "cover": "c8 npm test",
-    "prepare": "npm run build"
+    "cover": "c8 npm test"
   },
   "files": [
     "dist"
@@ -41,7 +35,7 @@
   },
   "homepage": "https://github.com/dotcore64/gulp-xml-transformer#readme",
   "dependencies": {
-    "arrify": "^2.0.1",
+    "arrify": "^3.0.0",
     "libxmljs2": "^0.30.1",
     "plugin-error": "^1.0.1",
     "through2": "^4.0.2",
@@ -61,7 +55,6 @@
     "eslint-plugin-node": "^11.1.0",
     "mocha": "^10.0.0",
     "p-event": "^5.0.1",
-    "rollup": "^2.75.3",
     "sinon": "^14.0.0",
     "sinon-chai": "^3.7.0",
     "vinyl": "^2.2.1"
