@@ -3,8 +3,6 @@
 [![Build Status][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coverage Status][coveralls-badge]][coveralls]
-[![Dependency Status][dependency-status-badge]][dependency-status]
-[![devDependency Status][dev-dependency-status-badge]][dev-dependency-status]
 
 > Transform xml documents gulp plugin
 
@@ -17,7 +15,7 @@ $ npm install --save-dev gulp-xml-transformer
 ## Usage
 
 ```javascript
-var xmlTransformer = require("gulp-xml-transformer");
+import xmlTransformer from "gulp-xml-transformer";
 
 /*
  * edit XML document by using user specific object
@@ -67,7 +65,7 @@ gulp.src("./manifest.xml")
     xml.get('//key[./text()="Version"]').nextElement().text('2.0.0');
 
     // 'libxmljs' is libxmljs object. you can call any libxmljs function.
-    var child = new libxmljs.Element(xml, 'note');
+    const child = new libxmljs.Element(xml, 'note');
     child.text('some text');
     xml.get('//description').addChild(child);
 
@@ -85,7 +83,7 @@ gulp.src("./manifest.xml")
     xml.get('//key[./text()="Version"]').nextElement().text('2.0.0');
 
     // 'libxmljs' is libxmljs object. you can call any libxmljs function.
-    var child = new libxmljs.Element(xml, 'note');
+    const child = new libxmljs.Element(xml, 'note');
     child.text('some text');
     xml.get('//description').addChild(child);
 
@@ -176,9 +174,3 @@ See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 
 [coveralls-badge]: https://img.shields.io/coveralls/dotcore64/gulp-xml-transformer/master.svg?style=flat-square
 [coveralls]: https://coveralls.io/r/dotcore64/gulp-xml-transformer
-
-[dependency-status-badge]: https://david-dm.org/dotcore64/gulp-xml-transformer.svg?style=flat-square
-[dependency-status]: https://david-dm.org/dotcore64/gulp-xml-transformer
-
-[dev-dependency-status-badge]: https://david-dm.org/dotcore64/gulp-xml-transformer/dev-status.svg?style=flat-square
-[dev-dependency-status]: https://david-dm.org/dotcore64/gulp-xml-transformer#info=devDependencies
