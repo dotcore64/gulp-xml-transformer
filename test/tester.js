@@ -121,7 +121,7 @@ export default (name, tester, namespacedTester) => {
           expected: expectedMajorIncrease,
           transformation: {
             path: '//version',
-            attr: { major: (val) => parseInt(val, 10) + 1 },
+            attr: { major: (val) => Number.parseInt(val, 10) + 1 },
           },
         },
         {
@@ -130,8 +130,8 @@ export default (name, tester, namespacedTester) => {
           transformation: {
             path: '//version',
             attrs: [
-              { major: (val) => parseInt(val, 10) + 1 },
-              { minor: (val) => parseInt(val, 10) + 1 },
+              { major: (val) => Number.parseInt(val, 10) + 1 },
+              { minor: (val) => Number.parseInt(val, 10) + 1 },
             ],
           },
         },
@@ -141,8 +141,8 @@ export default (name, tester, namespacedTester) => {
           transformation: {
             path: '//version',
             attrs: {
-              major: (val) => parseInt(val, 10) + 1,
-              minor: (val) => parseInt(val, 10) + 1,
+              major: (val) => Number.parseInt(val, 10) + 1,
+              minor: (val) => Number.parseInt(val, 10) + 1,
             },
           },
         },

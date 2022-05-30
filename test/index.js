@@ -7,7 +7,7 @@ import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
 
 // https://github.com/import-js/eslint-plugin-import/issues/1649
-// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+// eslint-disable-next-line import/no-unresolved,n/no-extraneous-import
 import xmlTransformer from 'gulp-xml-transformer';
 
 // https://github.com/import-js/eslint-plugin-import/issues/2104

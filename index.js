@@ -1,4 +1,4 @@
-import { callbackify } from 'util';
+import { callbackify } from 'node:util';
 import arrify from 'arrify';
 import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
