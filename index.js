@@ -5,11 +5,12 @@ import vinylToString from 'vinyl-contents-tostring';
 import PluginError from 'plugin-error';
 import { parseXmlString } from 'libxmljs2';
 
-import { PLUGIN_NAME } from './const';
+// https://github.com/import-js/eslint-plugin-import/issues/2104
+import { PLUGIN_NAME } from './lib/const.js'; // eslint-disable-line import/extensions
 import {
   func as functionTransformer,
   obj as objectTransformer,
-} from './transformers';
+} from './lib/transformers.js'; // eslint-disable-line import/extensions
 
 const clone = (fn) => (file, enc) => fn(file.clone(), enc);
 

@@ -1,5 +1,3 @@
-import { createRequire } from 'module';
-
 import File from 'vinyl';
 import PluginError from 'plugin-error';
 import { expect } from 'chai';
@@ -19,7 +17,7 @@ import { readTestFile } from './helper.js'; // eslint-disable-line import/extens
 const testXml = readTestFile('test.xml');
 const namespacedXml = readTestFile('namespaced.xml');
 
-describe('gulp-xml-editor', () => {
+describe('gulp-xml-transformer', () => {
   tester('in streaming mode', async (transformation, expectation) => {
     const cb = spy();
 
@@ -181,13 +179,6 @@ describe('gulp-xml-editor', () => {
         .to.eventually.be.instanceof(Error)
         .and.have.property('message')
         .equal('Can\'t find element at "//version/@major"');
-    });
-  });
-
-  describe('cjs', () => {
-    it('should require cjs module correctly', () => {
-      const require = createRequire(import.meta.url);
-      expect(require('..')).to.be.a('function');
     });
   });
 });
