@@ -41,7 +41,7 @@
     "plugin-error": "^2.0.0",
     "through2": "^4.0.2",
     "value-or-function": "^4.0.0",
-    "vinyl-contents-tostring": "^5.0.0"
+    "vinyl-contents-tostring": "^6.0.0"
   },
   "devDependencies": {
     "c8": "^7.12.0",
