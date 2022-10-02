@@ -33,13 +33,17 @@ const getTransformStream = (transformer) => through.obj(
 export default (transformations, nsUri) => {
   // check options
   switch (typeof transformations) {
-    case 'function':
+    case 'function': {
       return getTransformStream(functionTransformer(transformations));
-    case 'object':
+    }
+    case 'object': {
       return getTransformStream(objectTransformer(arrify(transformations), nsUri));
-    case 'undefined':
+    }
+    case 'undefined': {
       throw new PluginError(PLUGIN_NAME, 'transformations option is required');
-    default:
+    }
+    default: {
       throw new PluginError(PLUGIN_NAME, 'transformations option must be a function or an object');
+    }
   }
 };
