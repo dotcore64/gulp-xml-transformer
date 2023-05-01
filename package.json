@@ -37,7 +37,7 @@
   "homepage": "https://github.com/dotcore64/gulp-xml-transformer#readme",
   "dependencies": {
     "arrify": "^3.0.0",
-    "libxmljs2": "^0.31.0",
+    "libxmljs2": "^0.32.0",
     "plugin-error": "^2.0.1",
     "through2": "^4.0.2",
     "value-or-function": "^4.0.0",
