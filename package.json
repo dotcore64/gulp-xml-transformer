@@ -44,7 +44,7 @@
     "vinyl-contents-tostring": "^6.1.1"
   },
   "devDependencies": {
-    "c8": "^8.0.0",
+    "c8": "^8.0.1",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "dirname-filename-esm": "^1.1.1",
