@@ -1,4 +1,4 @@
-import libxmljs from 'libxmljs2';
+import libxmljs from 'libxmljs';
 
 // https://github.com/import-js/eslint-plugin-import/issues/2104
 import { readTestFile } from './helper.js'; // eslint-disable-line import/extensions

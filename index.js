@@ -3,7 +3,7 @@ import arrify from 'arrify';
 import through from 'through2';
 import vinylToString from 'vinyl-contents-tostring';
 import PluginError from 'plugin-error';
-import { parseXmlString } from 'libxmljs2';
+import { parseXmlAsync } from 'libxmljs';
 
 // https://github.com/import-js/eslint-plugin-import/issues/2104
 import { PLUGIN_NAME } from './lib/const.js'; // eslint-disable-line import/extensions
@@ -25,7 +25,7 @@ const getTransformStream = (transformer) => through.obj(
     file.isNull()
       ? Promise.resolve(file)
       : vinylToString(file, enc)
-        .then(parseXmlString)
+        .then(parseXmlAsync)
         .then(transformer)
         .then(update(file))))),
 );
