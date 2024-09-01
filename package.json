@@ -56,7 +56,7 @@
     "eslint-plugin-mocha": "^10.5.0",
     "eslint-plugin-n": "^17.10.1",
     "eslint-plugin-unicorn": "^55.0.0",
-    "mocha": "^10.7.0",
+    "mocha": "^10.7.3",
     "p-event": "^6.0.1",
     "sinon": "^18.0.0",
     "sinon-chai": "^3.7.0",
