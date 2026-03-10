@@ -57,7 +57,7 @@
     "eslint-plugin-n": "^17.24.0",
     "eslint-plugin-unicorn": "^56.0.1",
     "mocha": "^11.7.5",
-    "p-event": "^7.0.2",
+    "p-event": "^7.1.0",
     "sinon": "^21.0.2",
     "sinon-chai": "^4.0.1",
     "vinyl": "^3.0.1"
