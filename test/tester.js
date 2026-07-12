@@ -1,19 +1,18 @@
 import libxmljs from "libxmljs";
 
-// https://github.com/import-js/eslint-plugin-import/issues/2104
 import { readTestFile } from "./helper.js";
 
-const expectedText = readTestFile("test.text.xml");
-const expectedAttr = readTestFile("test.attr.xml");
-const expectedChild = readTestFile("test.child.xml");
-const expectedAddAttr = readTestFile("test.add_attr.xml");
-const expectedAddChangeAttr = readTestFile("test.add_change_attr.xml");
-const expectedMulti = readTestFile("test.multi.xml");
-const expectedMajorIncrease = readTestFile("test.major_increase.xml");
-const expectedMajorMinorIncrease = readTestFile(
+const expectedText = await readTestFile("test.text.xml");
+const expectedAttr = await readTestFile("test.attr.xml");
+const expectedChild = await readTestFile("test.child.xml");
+const expectedAddAttr = await readTestFile("test.add_attr.xml");
+const expectedAddChangeAttr = await readTestFile("test.add_change_attr.xml");
+const expectedMulti = await readTestFile("test.multi.xml");
+const expectedMajorIncrease = await readTestFile("test.major_increase.xml");
+const expectedMajorMinorIncrease = await readTestFile(
   "test.major_minor_increase.xml",
 );
-const expectedNs = readTestFile("namespaced.expected.xml");
+const expectedNs = await readTestFile("namespaced.expected.xml");
 
 const nsUri = "https://github.com/dotcore64/gulp-xml-transformer";
 

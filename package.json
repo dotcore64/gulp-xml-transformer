@@ -49,7 +49,6 @@
     "c8": "^11.0.0",
     "chai": "^6.2.2",
     "chai-as-promised": "^8.0.2",
-    "dirname-filename-esm": "^1.1.2",
     "dirty-chai": "^3.0.0",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",

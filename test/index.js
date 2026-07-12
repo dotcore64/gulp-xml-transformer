@@ -10,12 +10,11 @@ import vinylToString from "vinyl-contents-tostring";
 // eslint-disable-next-line import/no-unresolved
 import xmlTransformer from "gulp-xml-transformer";
 
-// https://github.com/import-js/eslint-plugin-import/issues/2104
 import tester from "./tester.js";
 import { readTestFile } from "./helper.js";
 
-const testXml = readTestFile("test.xml");
-const namespacedXml = readTestFile("namespaced.xml");
+const testXml = await readTestFile("test.xml");
+const namespacedXml = await readTestFile("namespaced.xml");
 
 describe("gulp-xml-transformer", () => {
   tester(

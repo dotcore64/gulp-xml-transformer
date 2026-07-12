@@ -1,6 +1,6 @@
 import { join } from "node:path";
-import { readFileSync } from "node:fs";
-import { dirname } from "dirname-filename-esm";
+import { readFile } from "node:fs/promises";
 
 export const readTestFile = (filePath) =>
-  readFileSync(join(dirname(import.meta), filePath), "utf8");
+  // eslint-disable-next-line n/no-unsupported-features/node-builtins
+  readFile(join(import.meta.dirname, filePath), "utf8");
