@@ -4,7 +4,7 @@
   "description": "Gulp plugin for transforming xml content",
   "type": "module",
   "engines": {
-    "node": ">=20.0.0"
+    "node": "^20.13.0"
   },
   "exports": {
     ".": "./index.js",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "lint": "eslint --cache .",
-    "test": "mocha",
+    "test": "node --test --import ./test/setup.js",
     "cover": "c8 npm test"
   },
   "files": [
@@ -58,7 +58,6 @@
     "eslint-plugin-n": "^18.2.2",
     "eslint-plugin-prettier": "^5.5.6",
     "eslint-plugin-unicorn": "^65.0.1",
-    "mocha": "^11.7.6",
     "p-event": "^7.1.0",
     "prettier": "3.9.5",
     "sinon": "^22.0.0",
