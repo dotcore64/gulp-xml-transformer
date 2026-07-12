@@ -6,11 +6,11 @@ import PluginError from 'plugin-error';
 import { parseXmlAsync } from 'libxmljs';
 
 // https://github.com/import-js/eslint-plugin-import/issues/2104
-import { PLUGIN_NAME } from './lib/const.js'; // eslint-disable-line import/extensions
+import { PLUGIN_NAME } from './lib/const.js';  
 import {
   func as functionTransformer,
   obj as objectTransformer,
-} from './lib/transformers.js'; // eslint-disable-line import/extensions
+} from './lib/transformers.js';  
 
 const clone = (fn) => (file, enc) => fn(file.clone(), enc);
 
