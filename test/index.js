@@ -11,8 +11,8 @@ import vinylToString from 'vinyl-contents-tostring';
 import xmlTransformer from 'gulp-xml-transformer';
 
 // https://github.com/import-js/eslint-plugin-import/issues/2104
-import tester from './tester.js'; // eslint-disable-line import/extensions
-import { readTestFile } from './helper.js'; // eslint-disable-line import/extensions
+import tester from './tester.js';  
+import { readTestFile } from './helper.js';  
 
 const testXml = readTestFile('test.xml');
 const namespacedXml = readTestFile('namespaced.xml');
