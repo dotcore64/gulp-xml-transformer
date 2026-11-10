@@ -59,7 +59,7 @@
     "eslint-plugin-unicorn": "^65.0.1",
     "eslint-plugin-yml": "^3.8.1",
     "p-event": "^8.0.2",
-    "prettier": "3.9.6",
+    "prettier": "3.9.10",
     "sinon": "^22.1.0",
     "sinon-chai": "^4.0.1",
     "vinyl": "^3.0.1"
