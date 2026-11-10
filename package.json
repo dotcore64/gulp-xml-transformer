@@ -44,7 +44,7 @@
     "vinyl-contents-tostring": "^9.0.0"
   },
   "devDependencies": {
-    "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.8.1",
     "@eslint/js": "^9.39.5",
     "c8": "^12.0.0",
     "chai": "^6.2.2",
